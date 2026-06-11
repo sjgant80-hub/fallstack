@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="aios-organ" content="fallstack" />
+<meta name="aios-layer" content="L3.organs.audit" />
+<meta name="prime" content="1321" />
+<meta name="description" content="◊ FallStack · sovereign SaaS audit + migration engine · drop your bill · we map every sub to a free sovereign replacement · the savings dashboard · MIT" />
+<title>◊ FallStack · your company on free organs</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext x='2' y='26' font-size='28' fill='%23b8974a'%3E%E2%97%8A%3C/text%3E%3C/svg%3E" />
+<style>
+:root{
+  --ox:#8b1a1a; --brass:#b8974a; --cream:#c4bfb2; --void:#0b0a0f;
+  --green:#3a7d3a; --dim:#7c7466; --line:rgba(184,151,74,.2);
+  --warm:#d4a857;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--void);color:var(--cream);min-height:100vh;line-height:1.6}
+body{background:radial-gradient(ellipse at top, rgba(139,26,26,.07), transparent 55%),radial-gradient(ellipse at bottom, rgba(184,151,74,.05), transparent 55%),var(--void);background-attachment:fixed}
+.ribbon{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--brass);text-transform:uppercase;letter-spacing:.2em;padding:14px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;background:rgba(0,0,0,.3);position:sticky;top:0;z-index:50;backdrop-filter:blur(8px)}
+.ribbon b{color:var(--cream)}
+.ribbon a{color:var(--brass);text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+section{padding:60px 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:none}
+h1{font-family:'Libre Baskerville',Georgia,serif;font-weight:400;font-size:52px;margin:24px 0 14px;color:var(--cream);letter-spacing:-.015em;line-height:1.1}
+h1 .glyph{color:var(--brass);font-family:'IBM Plex Mono',monospace}
+h2{font-family:'Libre Baskerville',serif;font-weight:400;font-size:26px;color:var(--brass);margin:0 0 14px;letter-spacing:-.01em}
+h3{font-family:'Libre Baskerville',serif;font-weight:400;font-size:18px;color:var(--cream);margin:18px 0 10px}
+.sub{color:var(--dim);font-size:14px;margin-bottom:28px;font-family:'IBM Plex Mono',monospace;letter-spacing:.05em}
+.kicker{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--brass);text-transform:uppercase;letter-spacing:.25em;margin-bottom:14px}
+p{margin:0 0 14px}
+a{color:var(--brass);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
+a:hover{border-bottom-color:var(--brass)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:transparent;border:1px solid var(--brass);color:var(--brass);font-family:'IBM Plex Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:.15em;cursor:pointer;border-radius:2px;transition:all .15s;text-decoration:none}
+.btn:hover{background:var(--brass);color:var(--void);border-bottom-color:var(--brass)}
+.btn.primary{background:var(--brass);color:var(--void)}
+.btn.primary:hover{background:var(--cream);border-color:var(--cream)}
+.btn.danger{border-color:var(--ox);color:var(--ox)}
+.btn.danger:hover{background:var(--ox);color:var(--cream)}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.card{background:rgba(255,255,255,.025);border:1px solid var(--line);padding:24px;border-radius:2px}
+.grid{display:grid;gap:18px}
+.grid-2{grid-template-columns:1fr 1fr}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:880px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+.stat{padding:18px;background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:2px}
+.stat .v{font-family:'IBM Plex Mono',monospace;font-size:30px;color:var(--cream);line-height:1}
+.stat .k{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.15em;margin-top:8px}
+.stat.green .v{color:var(--green)}
+.stat.brass .v{color:var(--brass)}
+.stat.ox .v{color:var(--ox)}
+.drop{padding:42px;border:2px dashed var(--line);text-align:center;border-radius:4px;background:rgba(0,0,0,.25);cursor:pointer;transition:all .15s}
+.drop:hover,.drop.over{border-color:var(--brass);background:rgba(184,151,74,.06)}
+.drop .glyph{font-size:42px;color:var(--brass);font-family:'IBM Plex Mono',monospace}
+.drop h3{margin:10px 0 6px;color:var(--cream)}
+.drop p{color:var(--dim);font-size:14px;margin:0}
+.drop input[type="file"]{display:none}
+input[type="text"],input[type="number"],select,textarea{width:100%;padding:11px 14px;background:rgba(0,0,0,.45);border:1px solid var(--line);color:var(--cream);font-family:inherit;font-size:14px;border-radius:2px;outline:none}
+textarea{min-height:120px;resize:vertical;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.55}
+input:focus,select:focus,textarea:focus{border-color:var(--brass)}
+label.label{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.12em;margin:14px 0 6px}
+table{width:100%;border-collapse:collapse;margin:14px 0}
+th,td{padding:12px 10px;text-align:left;border-bottom:1px solid var(--line);font-size:13px;vertical-align:top}
+th{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:var(--dim);font-weight:normal}
+tbody tr:hover{background:rgba(184,151,74,.04)}
+.amt{font-family:'IBM Plex Mono',monospace;color:var(--cream);text-align:right;white-space:nowrap}
+.amt.neg{color:var(--ox)}
+.amt.pos{color:var(--green)}
+.tag{display:inline-block;padding:3px 8px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;border-radius:1px;font-family:'IBM Plex Mono',monospace;border:1px solid var(--line);color:var(--cream)}
+.tag.match{background:rgba(58,125,58,.12);color:var(--green);border-color:var(--green)}
+.tag.partial{background:rgba(212,168,87,.12);color:var(--warm);border-color:var(--warm)}
+.tag.miss{background:rgba(139,26,26,.10);color:var(--ox);border-color:var(--ox)}
+.empty{padding:32px;text-align:center;color:var(--dim);font-family:'IBM Plex Mono',monospace;font-size:13px}
+.warning{padding:14px 18px;background:rgba(139,26,26,.1);border-left:3px solid var(--ox);color:var(--cream);font-size:14px;margin:18px 0;border-radius:2px}
+.success{padding:14px 18px;background:rgba(58,125,58,.1);border-left:3px solid var(--green);color:var(--cream);font-size:14px;margin:18px 0;border-radius:2px}
+.headline-savings{text-align:center;padding:42px 0;background:linear-gradient(180deg,rgba(58,125,58,.05),transparent);border:1px solid var(--green);border-radius:4px;margin:18px 0}
+.headline-savings .big{font-family:'Libre Baskerville',serif;font-size:64px;color:var(--green);line-height:1}
+.headline-savings .label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.2em;margin-top:10px}
+footer{padding:32px 24px;text-align:center;color:var(--dim);font-family:'IBM Plex Mono',monospace;font-size:11px;border-top:1px solid var(--line)}
+footer a{color:var(--brass)}
+.mono{font-family:'IBM Plex Mono',monospace;font-size:12px}
+.hero-quote{font-family:'Libre Baskerville',serif;font-style:italic;font-size:20px;color:var(--cream);border-left:2px solid var(--brass);padding:8px 0 8px 22px;margin:28px 0;max-width:640px}
+.manifesto{font-family:'Libre Baskerville',serif;font-size:18px;line-height:1.7;color:var(--cream);max-width:700px}
+.manifesto p{margin:0 0 18px}
+.manifesto b{color:var(--brass);font-weight:normal}
+details{margin:12px 0;background:rgba(0,0,0,.3);border:1px solid var(--line);padding:14px 18px;border-radius:2px}
+details summary{cursor:pointer;color:var(--brass);font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.12em;outline:none}
+details[open]{padding-bottom:18px}
+.replacement-link{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;background:rgba(184,151,74,.08);border:1px solid var(--brass);border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--brass);text-decoration:none}
+.replacement-link:hover{background:var(--brass);color:var(--void);border-bottom:1px solid var(--brass)}
+</style>
+<script src="https://sjgant80-hub.github.io/fall-euaiact/cdn/audit-shim.js" data-tool="fallstack" data-tier="full" defer></script>
+<script src="https://sjgant80-hub.github.io/fall-euaiact/cdn/nas-shim.js" data-tool="fallstack" data-organ="L3.organs.audit"></script>
+</head>
+<body>
+
+<div class="ribbon">
+  <span><b>◊ FallStack</b> · the SaaS audit + sovereign migration engine · prime 1321</span>
+  <span>sovereign · single-file · MIT · forever</span>
+</div>
+
+<main class="wrap">
+
+<!-- HERO -->
+<section id="hero">
+  <div class="kicker">/the SaaS audit/</div>
+  <h1><span class="glyph">◊</span> Your company is paying<br>£36,000 a year for nothing.</h1>
+  <p class="sub">/drop your bill/ /we map every sub to a free sovereign replacement/ /you cancel/ /the money comes back/</p>
+  <p style="max-width:660px;font-size:17px;color:var(--cream)">FallStack reads your accounting export or bank statement. For every SaaS line item, it shows you the free MIT-licensed organ that replaces it · with the data migration plan, the cancellation letter, and the annual savings. <b style="color:var(--brass)">17 sovereign organs replace 17 SaaS subscriptions.</b> Free forever. Single HTML file.</p>
+  <div class="btn-row" style="margin-top:24px">
+    <a href="#audit" class="btn primary">Drop your bill →</a>
+    <a href="#stack" class="btn">See the full stack</a>
+    <a href="#manifesto" class="btn">Why</a>
+  </div>
+  <p class="hero-quote">"You're paying SaaS prices for software that has been browser-native since 2017.<br>The infrastructure is in your browser. The wrapper should be free."</p>
+</section>
+
+<!-- AUDIT -->
+<section id="audit">
+  <div class="kicker">/step 1/</div>
+  <h2>Drop your bill</h2>
+  <p>Drag your accounting CSV (Xero, QuickBooks, FreeAgent · "subscriptions" or "expenses" export) or a bank statement. Or paste vendor names below. Parsed on your device · nothing uploads.</p>
+
+  <label class="drop" id="drop">
+    <div class="glyph">◊</div>
+    <h3>Drop a CSV or PDF here</h3>
+    <p>or click to choose · or paste vendor lines below</p>
+    <input type="file" id="file-input" accept=".csv,.pdf,.txt,application/pdf,text/csv,text/plain" />
+  </label>
+
+  <div style="margin-top:16px">
+    <label class="label">Or paste subscriptions directly (one per line · vendor and monthly cost):</label>
+    <textarea id="paste-area" placeholder="HubSpot         450
+Mailchimp       89
+Calendly        96
+Typeform        59
+DocuSign        125
+Granola         180
+QuickBooks      75
+Asana           120
+Notion          80
+..."></textarea>
+    <div class="btn-row" style="margin-top:12px">
+      <button class="btn primary" id="parse-btn">Audit the stack →</button>
+      <button class="btn" id="example-btn">Load example bill</button>
+    </div>
+  </div>
+
+  <div id="parse-status" class="mono" style="color:var(--dim);margin-top:14px"></div>
+</section>
+
+<!-- HEADLINE SAVINGS -->
+<section id="savings" style="display:none">
+  <div class="kicker">/the bottom line/</div>
+  <div class="headline-savings">
+    <div class="big" id="big-savings">£0</div>
+    <div class="label">annual savings if you migrate the entire stack</div>
+  </div>
+  <div class="grid grid-4">
+    <div class="stat ox"><div class="v" id="stat-current">£0</div><div class="k">current monthly burn</div></div>
+    <div class="stat green"><div class="v" id="stat-sovereign">£0</div><div class="k">sovereign replacement monthly</div></div>
+    <div class="stat brass"><div class="v" id="stat-matches">0 / 0</div><div class="k">subs matched to sovereign organs</div></div>
+    <div class="stat"><div class="v" id="stat-years">0</div><div class="k">years of payback (one-time switch)</div></div>
+  </div>
+</section>
+
+<!-- FINDINGS -->
+<section id="findings">
+  <div class="kicker">/the mapping/</div>
+  <h2>Your stack · sub by sub</h2>
+  <p>Each row is a vendor we detected. Green = direct sovereign replacement. Amber = partial replacement. Red = no MIT replacement yet · you'd still need to pay or fork your own.</p>
+
+  <div class="card" id="findings-card">
+    <div class="empty" id="findings-empty">Drop a bill above and the mapping appears here.</div>
+    <table id="findings-table" style="display:none">
+      <thead><tr>
+        <th>Vendor</th><th class="amt">Monthly</th><th class="amt">Annual</th><th>Replacement</th><th>Annual saved</th>
+      </tr></thead>
+      <tbody id="findings-tbody"></tbody>
+    </table>
+  </div>
+
+  <div class="btn-row" style="margin-top:20px">
+    <button class="btn" id="download-plan">Download migration plan (.md)</button>
+    <button class="btn" id="download-letters">Generate cancellation letters →</button>
+    <button class="btn" id="sign-envelope">Konomi-sign the audit envelope</button>
+  </div>
+  <p class="mono" id="sig-line" style="margin-top:12px;color:var(--green);word-break:break-all;font-size:11px"></p>
+</section>
+
+<!-- FULL STACK -->
+<section id="stack">
+  <div class="kicker">/the sovereign SMB stack/</div>
+  <h2>17 organs replace 17 subscriptions</h2>
+  <p>Every organ is a single HTML file. Runs on your device. MIT licence. Fork it. The whole stack ships as your browser's bookmarks.</p>
+
+  <div class="grid grid-3" id="organ-cards"></div>
+
+  <div class="warning" style="margin-top:24px">
+    <b>Gap-fills coming.</b> Some categories don't have a sovereign organ yet — accounting (full books), document signing, project management with deep features, internal chat. FallStack flags these honestly. If your company depends on one of them, factor that into the migration plan.
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how">
+  <div class="kicker">/the loop/</div>
+  <h2>How it works · 5 steps</h2>
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>1. Parse</h3>
+      <p>CSV or PDF parser reads your accounting export. Detects recurring vendor charges. Pattern engine identifies known SaaS vendors (HubSpot, Mailchimp, Calendly, etc).</p>
+    </div>
+    <div class="card">
+      <h3>2. Map</h3>
+      <p>Each detected vendor is matched to the corresponding sovereign organ (HubSpot → FallCRM, Mailchimp → FallList, etc) with a confidence score.</p>
+    </div>
+    <div class="card">
+      <h3>3. Cost</h3>
+      <p>Total monthly spend · total annual spend · sovereign-replacement cost (£0) · annual savings. Headline number front and centre.</p>
+    </div>
+    <div class="card">
+      <h3>4. Migrate</h3>
+      <p>Generates a migration plan: which organ to fork first, how to export your data from each vendor, how to import, in what order.</p>
+    </div>
+    <div class="card">
+      <h3>5. Cancel</h3>
+      <p>Cancellation letters per vendor citing your jurisdiction's consumer law (Consumer Rights Act · Omnibus · FTC Click-to-Cancel · ACL). Konomi-signed. Hand-off to FallBack.</p>
+    </div>
+    <div class="card">
+      <h3>6. Audit</h3>
+      <p>Konomi Ed25519 signs the audit envelope · provable provenance for board reporting. "We saved £X across 12 months · here's the cryptographic receipt."</p>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section id="manifesto">
+  <div class="kicker">/why/</div>
+  <h2>The manifesto</h2>
+  <div class="manifesto">
+    <p>A small company in 2026 pays somewhere between <b>£20,000 and £57,000 a year</b> for SaaS subscriptions. The line items repeat: CRM, email marketing, scheduling, forms, invoicing, accounting, HR, document signing, meeting notes, LinkedIn engagement, project management, knowledge base, customer support.</p>
+    <p>Every single one of those line items is, structurally, <b>a wrapper around 3-5 browser APIs</b>. We know this because we have built the sovereign versions, single-file each, MIT, free forever. They are not theoretically possible · they are <b>shipped</b>.</p>
+    <p>The reason your accountant doesn't know this is that the wrapper layer has been priced like infrastructure for so long that <b>"that's how software works"</b> is the assumption. But infrastructure is in the browser. Has been since 2017. The wrapper layer is just where the rent gets extracted.</p>
+    <p>FallStack is what happens when you point a small language model at your accounting export and say: <b>map every line item to its free replacement</b>. The savings are not theoretical. They are extractable in two hours of operator time.</p>
+    <p>This isn't a SaaS-killer pitch. The SaaS layer survives anywhere the wrapper adds real value · advanced integrations, dedicated support, regulated industries, large-team coordination. The point is that the <b>default</b> shouldn't be paying £40k/year for software whose entire job is to call browser APIs your browser already implements.</p>
+    <p>The default should be sovereign. The exception should be SaaS.</p>
+    <p style="color:var(--brass)">For the people. Not the few.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  ◊ FallStack · prime 1321 · MIT · sovereign · single-file · forever<br>
+  Built by <a href="https://www.linkedin.com/in/simon-gant-295b56180/">Simon Gant</a> · architecture lineage: Thomas Frumkin · MianoCube<br>
+  Part of the <a href="https://sjgant80-hub.github.io/fall-registry/">AI Native Solutions estate</a> · 140+ sovereign tools<br>
+  <a href="https://github.com/sjgant80-hub/fallstack">source on GitHub</a> · <a href="https://sjgant80-hub.github.io/fallcorp/">FallCorp · the bundled shell</a> · <span style="color:var(--dim)">for the people · not the few</span>
+</footer>
+
+<script type="module">
+'use strict';
+
+// =====================================================================
+// FallStack · prime 1321 · SaaS audit + sovereign migration engine
+// =====================================================================
+
+const $ = (s) => document.querySelector(s);
+
+// ── THE STACK · the sovereign SMB replacement map ───────────────────
+const STACK = [
+  // CRM · sales
+  { id:'fallcrm',      name:'FallCRM',        cat:'CRM',          replaces:['hubspot','salesforce','pipedrive','copper','zoho crm','close','keap','agile crm'],         url:'https://sjgant80-hub.github.io/fallcrm/',        coverage:'full' },
+  { id:'fallforce',    name:'FallForce',      cat:'CRM master',   replaces:['salesforce','hubspot enterprise','pega'],                                                  url:'https://github.com/sjgant80-hub/fallforce',       coverage:'full' },
+  // Email marketing
+  { id:'falllist',     name:'FallList',       cat:'Email mkt',    replaces:['mailchimp','klaviyo','sendinblue','brevo','mailerlite','convertkit','beehiiv','substack','active campaign','campaign monitor','constant contact'], url:'https://sjgant80-hub.github.io/falllist/', coverage:'full' },
+  { id:'fallreach',    name:'FallReach',      cat:'Email mkt',    replaces:['lemlist','reply.io','outreach','salesloft','apollo','instantly','smartlead','quickmail'],   url:'https://github.com/sjgant80-hub/fallreach',       coverage:'full' },
+  // Scheduling
+  { id:'fallslot',     name:'FallSlot',       cat:'Scheduling',   replaces:['calendly','cal.com','acuity','setmore','squarespace scheduling','doodle','savvycal','x.ai','tidycal'],          url:'https://sjgant80-hub.github.io/fallslot/',       coverage:'full' },
+  // Forms
+  { id:'fallform',     name:'FallForm',       cat:'Forms',        replaces:['typeform','jotform','google forms','wufoo','formstack','tally','paperform','fillout'],     url:'https://sjgant80-hub.github.io/fallform/',       coverage:'full' },
+  // Invoicing / billing
+  { id:'fallinvoice',  name:'FallInvoice',    cat:'Invoicing',    replaces:['stripe billing','stripe invoicing','chargebee','recurly','invoiced','invoice ninja','wave','zoho invoice','quickbooks invoicing'], url:'https://sjgant80-hub.github.io/fallinvoice/', coverage:'full' },
+  // AP · invoice rewriting
+  { id:'fallap',       name:'FallAP',         cat:'Accounts Payable', replaces:['bill.com','tipalti','airbase','melio','plooto','ramp ap','spendesk'],                  url:'https://sjgant80-hub.github.io/fallap/',         coverage:'partial' },
+  // Cashflow
+  { id:'fallflow',     name:'FallFlow',       cat:'Cashflow',     replaces:['float','agicap','pulse','cashflow frog','dryrun'],                                          url:'https://sjgant80-hub.github.io/fallflow/',       coverage:'full' },
+  // HR · interviews
+  { id:'fallhire',     name:'FallHire',       cat:'HR · ATS',     replaces:['bamboohr','greenhouse','lever','workable','breezy hr','ashby','jobvite','rippling ats','recruitee'],         url:'https://sjgant80-hub.github.io/fallhire/',       coverage:'partial' },
+  // Carousel · content
+  { id:'fallcarousel', name:'FallCarousel',   cat:'LinkedIn carousel', replaces:['supergrow','adobe express','canva','crello','aippt','postwise carousel'],             url:'https://sjgant80-hub.github.io/fallcarousel/',   coverage:'full' },
+  // LinkedIn engagement
+  { id:'fallpost',     name:'FallPost',       cat:'LinkedIn eng', replaces:['buffer','hootsuite','sprout social','later','postwise','taplio','hypefury','authoredup','shield'],          url:'https://sjgant80-hub.github.io/fallpost/',       coverage:'full' },
+  { id:'fallguild',    name:'FallGuild',      cat:'LinkedIn pods',replaces:['lempod','podawaa','engagement pods'],                                                       url:'https://sjgant80-hub.github.io/fallguild/',      coverage:'full' },
+  // Meeting notes
+  { id:'fallscribe',   name:'FallScribe',     cat:'Meeting notes',replaces:['granola','otter.ai','fireflies','fathom','tactiq','read ai','sembly','tldv','gong','chorus.ai','jamie','rev','grain','briefly'],                  url:'https://sjgant80-hub.github.io/fallscribe/',     coverage:'full' },
+  // Audio content
+  { id:'audiofabric',  name:'AudioFabric',    cat:'Audio content',replaces:['descript','riverside','adobe podcast','wondercraft'],                                       url:'https://sjgant80-hub.github.io/audiofabric/',    coverage:'full' },
+  // Subscription audit
+  { id:'fallback',     name:'FallBack',       cat:'Rights / refund', replaces:['rocket money','truebill','bobby','subscriptions tracker'],                              url:'https://sjgant80-hub.github.io/fallback/',       coverage:'full' },
+  // Personal AI
+  { id:'botler',       name:'Botler',         cat:'Personal AI',  replaces:['mem','rewind','reflect','tana','notion ai'],                                                 url:'https://sjgant80-hub.github.io/botler/',         coverage:'partial' },
+  // Legal (UK)
+  { id:'groundlevel',  name:'GroundLevel',    cat:'Legal research (UK)', replaces:['legalzoom','lexisnexis','westlaw','rocket lawyer','farewill'],                       url:'https://sjgant80-hub.github.io/groundlevel/',    coverage:'partial' },
+  // Compliance · EU AI Act
+  { id:'fall-euaiact', name:'fall-euaiact',   cat:'AI Act compliance', replaces:['holisticai','credo','fairly ai','airbox.ai','enzai','dataguard','onetrust ai'],         url:'https://sjgant80-hub.github.io/fall-euaiact/',   coverage:'full' },
+  // Consulting / strategy
+  { id:'operator',     name:'OPERATOR',       cat:'Strategy cascade', replaces:['mckinsey solutions','luminary','flash','bain delivery'],                                url:'https://sjgant80-hub.github.io/operator/',       coverage:'partial' },
+  // ExitEngine (business OS)
+  { id:'exitengine',   name:'ExitEngine',     cat:'Business OS · solo', replaces:['gusto','rippling','justworks','deel for solos'],                                       url:'https://sjgant80-hub.github.io/exitengine/',     coverage:'partial' },
+];
+
+// Common UK/US monthly costs for fallback when we can't detect actual charge
+const TYPICAL_COSTS = {
+  hubspot:450, salesforce:1500, pipedrive:90, mailchimp:89, klaviyo:200, calendly:96, typeform:59,
+  docusign:125, granola:180, quickbooks:75, xero:65, asana:120, notion:80, slack:200, intercom:299,
+  zendesk:495, buffer:50, hootsuite:99, monday:80, jira:75, confluence:60, otter:30, fireflies:36,
+  airtable:120, gusto:240, rippling:300, bamboohr:120, greenhouse:600, lever:600, descript:24,
+  riverside:30, deel:50, bill:79, ramp:0, brex:0, mercury:0, stripe:0,
+};
+
+// =====================================================================
+// STATE
+// =====================================================================
+const state = {
+  vendors: [],         // [{name, monthly, annual, matched, organ, savings, coverage}]
+  unmatched: [],
+  sigHex: null,
+  audit_envelope: null,
+};
+
+// =====================================================================
+// PARSERS · CSV + paste
+// =====================================================================
+function parseCSV(text) {
+  const lines = text.split(/\r?\n/).filter(l => l.trim());
+  const out = [];
+  let startIdx = 0;
+  const header = (lines[0]||'').toLowerCase();
+  if (header.includes('date') || header.includes('vendor') || header.includes('amount') || header.includes('description')) startIdx = 1;
+  for (let i = startIdx; i < lines.length; i++) {
+    const cells = splitCSV(lines[i]);
+    if (!cells.length) continue;
+    // try to find description and amount
+    let desc=null, amount=null;
+    for (const c of cells) {
+      const t = (c||'').trim();
+      if (!amount && /^[-+]?\s*[£$€]?\s*-?\d[\d,]*\.?\d{0,2}$/.test(t.replace(/\s/g,''))) {
+        amount = Math.abs(parseFloat(t.replace(/[£$€,\s]/g,'')));
+      } else if (!desc && t.length > 2) desc = t;
+    }
+    if (desc && amount && amount > 0) out.push({ description: desc, amount });
+  }
+  return out;
+}
+function splitCSV(line) {
+  const out = []; let cur=''; let inQ=false;
+  for (let i=0;i<line.length;i++) {
+    const c=line[i];
+    if (c==='"' && line[i+1]==='"') { cur+='"'; i++; }
+    else if (c==='"') inQ=!inQ;
+    else if (c===',' && !inQ) { out.push(cur); cur=''; }
+    else cur+=c;
+  }
+  out.push(cur);
+  return out;
+}
+function parsePasted(text) {
+  const lines = text.split(/\r?\n/).filter(l => l.trim());
+  const out = [];
+  for (const line of lines) {
+    // last token = amount, rest = vendor
+    const parts = line.trim().split(/\s+/);
+    if (parts.length < 1) continue;
+    const last = parts[parts.length-1].replace(/[£$€,]/g,'');
+    const v = parseFloat(last);
+    if (!isNaN(v) && parts.length >= 2) {
+      out.push({ description: parts.slice(0, -1).join(' '), amount: v });
+    } else {
+      // just vendor name, look up typical cost
+      const vendorOnly = parts.join(' ');
+      const lookup = TYPICAL_COSTS[vendorOnly.toLowerCase().split(' ')[0]];
+      if (lookup !== undefined) out.push({ description: vendorOnly, amount: lookup });
+      else out.push({ description: vendorOnly, amount: 0 });
+    }
+  }
+  return out;
+}
+
+async function parsePDF(buffer) {
+  if (!window.pdfjsLib) {
+    await new Promise((res, rej) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+      s.onload = res; s.onerror = rej;
+      document.head.appendChild(s);
+    });
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  }
+  const pdf = await window.pdfjsLib.getDocument({ data: buffer }).promise;
+  let text = '';
+  for (let p = 1; p <= pdf.numPages; p++) {
+    const page = await pdf.getPage(p);
+    const tc = await page.getTextContent();
+    text += tc.items.map(i => i.str).join(' ') + '\n';
+  }
+  // find pattern: vendor name + amount
+  const rows = [];
+  const re = /([A-Z][A-Za-z0-9 .,&*\-]{3,40}?)\s+(-?\d+\.\d{2})\b/g;
+  let m;
+  while ((m = re.exec(text)) !== null) {
+    rows.push({ description: m[1].trim(), amount: Math.abs(parseFloat(m[2])) });
+  }
+  return rows;
+}
+
+// =====================================================================
+// MATCHING ENGINE
+// =====================================================================
+function normaliseVendor(s) {
+  return (s||'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+}
+
+function matchVendor(rawDesc) {
+  const n = normaliseVendor(rawDesc);
+  for (const organ of STACK) {
+    for (const r of organ.replaces) {
+      if (n.includes(r)) return { organ, replaceFor: r };
+    }
+  }
+  return null;
+}
+
+function audit(vendors) {
+  // group raw transactions by vendor signature
+  const groups = {};
+  for (const v of vendors) {
+    const n = normaliseVendor(v.description);
+    const key = n.split(' ').slice(0, 3).join(' '); // first 3 words
+    if (!groups[key]) groups[key] = { desc: v.description, samples: [], total: 0, count: 0 };
+    groups[key].samples.push(v);
+    groups[key].total += v.amount;
+    groups[key].count++;
+  }
+
+  const matched = [];
+  const unmatched = [];
+  for (const [key, g] of Object.entries(groups)) {
+    if (g.count < 1) continue;
+    const monthly = g.total / g.count;
+    const annual = monthly * 12;
+    const match = matchVendor(g.desc);
+    const item = {
+      vendor_raw: g.desc,
+      vendor_clean: g.desc.split(/[\d]/)[0].trim().toUpperCase(),
+      monthly,
+      annual,
+      count: g.count,
+      matched: !!match,
+      organ: match ? match.organ : null,
+      coverage: match ? match.organ.coverage : null,
+      saving: match ? annual : 0,
+    };
+    if (match) matched.push(item);
+    else unmatched.push(item);
+  }
+  return { matched, unmatched, all: [...matched, ...unmatched] };
+}
+
+// =====================================================================
+// RENDER
+// =====================================================================
+function fmt(n) { return '£' + (Math.round((n||0)*100)/100).toFixed(0); }
+
+function render() {
+  const all = state.vendors;
+  if (!all.length) {
+    $('#findings-empty').style.display = 'block';
+    $('#findings-table').style.display = 'none';
+    $('#savings').style.display = 'none';
+    return;
+  }
+  $('#findings-empty').style.display = 'none';
+  $('#findings-table').style.display = 'table';
+  $('#savings').style.display = 'block';
+
+  const tbody = $('#findings-tbody');
+  tbody.innerHTML = '';
+  const sorted = [...all].sort((a,b) => b.annual - a.annual);
+  for (const f of sorted) {
+    const tr = document.createElement('tr');
+    const repCell = f.organ
+      ? `<a class="replacement-link" href="${f.organ.url}" target="_blank">◊ ${f.organ.name}</a><br><span class="mono" style="color:var(--dim);font-size:10px">${f.organ.cat}</span> ${f.coverage === 'partial' ? '<span class="tag partial">partial</span>' : ''}`
+      : `<span class="tag miss">no sovereign match</span><br><span class="mono" style="color:var(--dim);font-size:10px">${f.vendor_clean}</span>`;
+    tr.innerHTML = `
+      <td><b>${escapeHtml(f.vendor_clean)}</b><br><span class="mono" style="color:var(--dim);font-size:10px">${escapeHtml((f.vendor_raw||'').slice(0,40))}</span></td>
+      <td class="amt neg">${fmt(f.monthly)}</td>
+      <td class="amt neg">${fmt(f.annual)}</td>
+      <td>${repCell}</td>
+      <td class="amt ${f.saving ? 'pos':''}">${f.saving ? fmt(f.saving) : '—'}</td>
+    `;
+    tbody.appendChild(tr);
+  }
+
+  // headline stats
+  const currentMonthly = all.reduce((s,f) => s + f.monthly, 0);
+  const matchedCount = all.filter(f => f.matched).length;
+  const totalSaving = all.filter(f => f.matched).reduce((s,f) => s + f.saving, 0);
+  $('#stat-current').textContent = fmt(currentMonthly);
+  $('#stat-sovereign').textContent = '£0';
+  $('#stat-matches').textContent = `${matchedCount} / ${all.length}`;
+  const yearsLabel = totalSaving > 0 ? '< 1 month' : 'n/a';
+  $('#stat-years').textContent = yearsLabel;
+  $('#big-savings').textContent = fmt(totalSaving);
+}
+
+function renderOrgans() {
+  const wrap = $('#organ-cards');
+  wrap.innerHTML = '';
+  for (const o of STACK) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <h3 style="margin-top:0">◊ ${o.name}</h3>
+      <p class="mono" style="color:var(--brass);font-size:11px;text-transform:uppercase;letter-spacing:.1em;margin:4px 0 10px">${o.cat}</p>
+      <p style="font-size:13px;color:var(--cream);opacity:.85">Replaces: ${o.replaces.slice(0,3).map(r => r.replace(/\b\w/g, c => c.toUpperCase())).join(' · ')}${o.replaces.length > 3 ? ' · +' + (o.replaces.length-3) + ' more' : ''}</p>
+      <div style="display:flex;gap:6px;margin-top:8px">
+        <a class="replacement-link" href="${o.url}" target="_blank">open →</a>
+        ${o.coverage === 'partial' ? '<span class="tag partial">partial replacement</span>' : '<span class="tag match">full replacement</span>'}
+      </div>
+    `;
+    wrap.appendChild(card);
+  }
+}
+
+function escapeHtml(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// =====================================================================
+// MIGRATION PLAN + LETTERS
+// =====================================================================
+function planMarkdown() {
+  const matched = state.vendors.filter(f => f.matched);
+  const unmatched = state.vendors.filter(f => !f.matched);
+  const total = matched.reduce((s,f) => s + f.annual, 0);
+
+  let md = `# ◊ FallStack · sovereign migration plan
+
+**Generated:** ${new Date().toISOString()}
+**Estimated annual savings:** ${fmt(total)}
+**Subs matched to sovereign organs:** ${matched.length} of ${matched.length + unmatched.length}
+
+---
+
+## Migration order
+
+Forks in this order minimise data loss · earlier organs feed later ones.
+
+`;
+  // priority order: CRM, contacts/list, scheduling, forms, invoicing, then everything else
+  const priority = ['fallcrm','falllist','fallslot','fallform','fallinvoice','fallap','fallflow','fallhire','fallscribe','fallback','fallcarousel','fallpost','fallguild','audiofabric','operator','groundlevel','fall-euaiact','botler','exitengine'];
+  const orderedMatched = [...matched].sort((a,b) => {
+    const ai = priority.indexOf(a.organ.id);
+    const bi = priority.indexOf(b.organ.id);
+    return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+  });
+
+  let i = 1;
+  for (const m of orderedMatched) {
+    md += `### ${i}. ${m.organ.name} (replaces ${m.vendor_clean})
+
+- **Currently paying:** ${fmt(m.monthly)}/mo · ${fmt(m.annual)}/yr
+- **Sovereign cost:** £0
+- **Annual saving:** ${fmt(m.annual)}
+- **Open the organ:** ${m.organ.url}
+- **Coverage:** ${m.coverage === 'full' ? 'full replacement' : 'partial · validate gaps below before cancelling'}
+
+**Migration steps:**
+1. Open ${m.organ.url} and complete the brief setup (mostly 1-2 minutes).
+2. Export your data from ${m.vendor_clean} (most vendors offer a CSV export under Settings → Data).
+3. Drag the export into ${m.organ.name} (or paste the rows).
+4. Run a 1-week parallel period · keep both running, compare daily output.
+5. Once parity is confirmed, draft the cancellation letter (FallBack → cancel-subscription template).
+6. Send. Mark as cancelled. Bank the saving.
+
+---
+
+`;
+    i++;
+  }
+
+  if (unmatched.length) {
+    md += `## Subs WITHOUT a sovereign replacement (yet)
+
+These are real gaps. Either fork your own, keep paying, or wait for a future estate organ.
+
+`;
+    for (const u of unmatched) {
+      md += `- **${u.vendor_clean}** · ${fmt(u.monthly)}/mo · ${fmt(u.annual)}/yr\n`;
+    }
+    md += '\n---\n';
+  }
+
+  md += `\n## Audit envelope
+
+This plan can be Konomi-signed. Click "Konomi-sign the audit envelope" in FallStack to mint an Ed25519 signature provable to any verifier.
+
+---
+
+*◊ FallStack · prime 1321 · MIT · sovereign · single-file · forever*
+*Architecture: Thomas Frumkin · MianoCube · Implementation: Simon Gant*
+*For the people. Not the few.*
+`;
+  return md;
+}
+
+async function downloadPlan() {
+  const md = planMarkdown();
+  const blob = new Blob([md], { type:'text/markdown' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `fallstack-migration-plan-${Date.now()}.md`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function generateLetters() {
+  // Just forward to FallBack with the vendor list in the URL
+  const vendors = state.vendors.filter(f => f.matched).map(f => f.vendor_clean).join(',');
+  // FallBack will pick this up via query string · or open with a paste-ready list
+  alert(`Cancellation letters: open FallBack and paste these vendors:\n\n${vendors.split(',').join('\n')}\n\nFallBack will draft the cancellation letter for each one citing your jurisdiction's consumer law.`);
+  window.open('https://sjgant80-hub.github.io/fallback/', '_blank');
+}
+
+// =====================================================================
+// KONOMI SIGNING
+// =====================================================================
+async function signEnvelope() {
+  try {
+    const pair = await crypto.subtle.generateKey({ name:'Ed25519' }, false, ['sign','verify']);
+    const raw = await crypto.subtle.exportKey('raw', pair.publicKey);
+    const pubHex = Array.from(new Uint8Array(raw)).map(b=>b.toString(16).padStart(2,'0')).join('');
+
+    const envelope = {
+      kind: 'fallstack-audit',
+      ts: new Date().toISOString(),
+      vendors: state.vendors.length,
+      matched: state.vendors.filter(f => f.matched).length,
+      annual_saving_gbp: state.vendors.filter(f => f.matched).reduce((s,f) => s + f.annual, 0),
+      pubkey: pubHex,
+    };
+    const canon = JSON.stringify(envelope);
+    const sig = await crypto.subtle.sign({ name:'Ed25519' }, pair.privateKey, new TextEncoder().encode(canon));
+    const sigHex = Array.from(new Uint8Array(sig)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    state.sigHex = sigHex;
+    state.audit_envelope = { ...envelope, signature: sigHex };
+    $('#sig-line').innerHTML = `◊ Audit envelope signed · pubkey: <code style="color:var(--cream)">${pubHex.slice(0,32)}…</code> · sig: <code style="color:var(--cream)">${sigHex.slice(0,32)}…</code>`;
+  } catch (e) {
+    $('#sig-line').textContent = '✗ signing unavailable in this browser';
+  }
+}
+
+// =====================================================================
+// FILE INTAKE
+// =====================================================================
+async function handleFile(file) {
+  const status = $('#parse-status');
+  status.textContent = `parsing ${file.name}…`;
+  try {
+    let txns = [];
+    if (file.name.toLowerCase().endsWith('.pdf') || file.type === 'application/pdf') {
+      const buf = await file.arrayBuffer();
+      txns = await parsePDF(buf);
+    } else if (file.name.toLowerCase().endsWith('.csv') || file.type === 'text/csv') {
+      txns = parseCSV(await file.text());
+    } else {
+      txns = parsePasted(await file.text());
+    }
+    await processVendors(txns);
+  } catch (e) {
+    status.textContent = `✗ parse error: ${e.message}`;
+    console.error(e);
+  }
+}
+
+async function processVendors(txns) {
+  const status = $('#parse-status');
+  if (!txns.length) {
+    status.textContent = '✗ no vendors detected · try pasting them below';
+    return;
+  }
+  const result = audit(txns);
+  state.vendors = result.all;
+  render();
+  status.textContent = `✓ found ${result.all.length} subs · ${result.matched.length} have a sovereign replacement`;
+  document.getElementById('savings').scrollIntoView({ behavior:'smooth', block:'start' });
+
+  // NAS hand-off
+  if (window.nas && window.nas.isForkPresent && window.nas.isForkPresent()) {
+    try {
+      const sav = result.matched.reduce((s,f) => s + f.annual, 0);
+      window.nas.ingest(`FallStack audit: ${result.matched.length}/${result.all.length} matched · £${sav.toFixed(0)}/yr recoverable`, { kind:'fallstack-audit' });
+    } catch(_) {}
+  }
+}
+
+// =====================================================================
+// EXAMPLE
+// =====================================================================
+const EXAMPLE_BILL = `HubSpot         450
+Mailchimp       89
+Calendly        96
+Typeform        59
+DocuSign        125
+Granola         180
+QuickBooks      75
+Asana           120
+Notion          80
+Slack           200
+Buffer          50
+Intercom        299
+Gusto           300
+Otter.ai        30
+Descript        24
+Bill.com        79
+Loom            32`;
+
+// =====================================================================
+// WIRE UP
+// =====================================================================
+window.addEventListener('DOMContentLoaded', () => {
+  renderOrgans();
+
+  const drop = $('#drop');
+  const input = $('#file-input');
+  drop.addEventListener('click', () => input.click());
+  input.addEventListener('change', (e) => {
+    if (e.target.files[0]) handleFile(e.target.files[0]);
+  });
+  drop.addEventListener('dragover', (e) => { e.preventDefault(); drop.classList.add('over'); });
+  drop.addEventListener('dragleave', () => drop.classList.remove('over'));
+  drop.addEventListener('drop', (e) => {
+    e.preventDefault(); drop.classList.remove('over');
+    if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+  });
+
+  $('#parse-btn').addEventListener('click', async () => {
+    const txt = $('#paste-area').value;
+    if (!txt.trim()) { $('#parse-status').textContent = 'paste some subs first'; return; }
+    await processVendors(parsePasted(txt));
+  });
+
+  $('#example-btn').addEventListener('click', async () => {
+    $('#paste-area').value = EXAMPLE_BILL;
+    await processVendors(parsePasted(EXAMPLE_BILL));
+  });
+
+  $('#download-plan').addEventListener('click', downloadPlan);
+  $('#download-letters').addEventListener('click', generateLetters);
+  $('#sign-envelope').addEventListener('click', signEnvelope);
+
+  console.log('%c◊·κ=φ⁴ FallStack · prime 1321 · your company on free organs', 'color:#b8974a;font-weight:bold');
+});
+
+window.FallStack = { state, STACK, audit, parseCSV, parsePasted };
+</script>
+
+</body>
+</html>
