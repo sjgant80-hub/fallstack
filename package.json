@@ -1,13 +1,18 @@
 {
   "name": "fallstack",
   "version": "1.0.0",
-  "description": "The estate's price registry and SaaS audit: every vendor list price sourced and dated, every rented subscription set against the estate organ that replaces it, with its maturity read from GitHub's runners",
+  "description": "The estate's price registry and SaaS audit · MIT · @ai-native-solutions",
   "type": "module",
   "private": false,
   "license": "MIT",
   "author": "sjgant80-hub <sjgant80@gmail.com>",
   "homepage": "https://sjgant80-hub.github.io/fallstack/",
-  "repository": { "type": "git", "url": "https://github.com/sjgant80-hub/fallstack.git" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sjgant80-hub/fallstack.git"
+  },
   "main": "prices.mjs",
-  "scripts": { "test": "node --test prices.test.mjs stack.test.mjs && node tier.test.mjs" }
+  "scripts": {
+    "test": "node --test"
+  }
 }
