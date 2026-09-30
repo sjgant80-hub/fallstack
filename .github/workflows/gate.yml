@@ -1,0 +1,44 @@
+name: gate
+# fallstack is the estate's price registry and SaaS audit. The gate proves the kernels (tests + a mutation witness
+# that must be CLEAN on each), checks the registry is well formed and fresh as of the day CI runs, checks the organ
+# map, proves the page IS the kernels over the committed data (fixpoint), and checks this repository's own
+# compliance map with fall-euaiact's tool at a pinned commit.
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - name: tests
+        run: npm test
+      - name: mutation gate — prices.mjs, stack.mjs, tier.mjs must each be CLEAN
+        run: |
+          for pair in "prices.mjs:node --test prices.test.mjs" "stack.mjs:node --test stack.test.mjs" "tier.mjs:node tier.test.mjs"; do
+            f="${pair%%:*}"; t="${pair#*:}"
+            node tools/witness.mjs mutate "$f" --timeout 60000 --cap 900 --test $t | tee "$f.gate" || true
+            node -e "const b=require('fs').readFileSync(process.argv[1],'utf8');const j=JSON.parse(b.slice(b.indexOf('{'),b.lastIndexOf('}')+1));if(j.clean!==true){console.error(process.argv[1]+' NOT CLEAN');process.exit(1)}console.log(process.argv[1]+' CLEAN '+j.killed+'/'+j.total)" "$f.gate"
+          done
+      - name: the registry — every entry sourced, dated, stated, unique, and fresh today
+        run: |
+          node --input-type=module -e "
+          import { readFileSync } from 'node:fs';
+          import { checkRegistry } from './prices.mjs';
+          import { checkOrgans } from './stack.mjs';
+          const today = new Date(Date.now() + 14 * 3600000).toISOString().slice(0, 10);   // the latest date anywhere: nothing checked today reads as future-dated
+          const r = checkRegistry(JSON.parse(readFileSync('registry/prices.json', 'utf8')), today);
+          if (!r.ok) { console.error('REGISTRY FAILS on ' + today + ':\n  ' + (r.why || r.problems.join('\n  '))); process.exit(1); }
+          const o = checkOrgans(JSON.parse(readFileSync('registry/organs.json', 'utf8')));
+          if (!o.ok) { console.error('ORGAN MAP FAILS:\n  ' + (o.why || o.problems.join('\n  '))); process.exit(1); }
+          console.log('registry: ' + r.count + ' entries, fresh on ' + today + ' · organ map: ' + o.functions + ' functions');"
+      - name: page fixpoint — the live audit IS the gated kernels
+        run: |
+          node tools/make-page.mjs
+          git diff --exit-code index.html
+      - name: this repository states no price outside the registry, and carries its own current compliance map
+        run: |
+          node tools/price-check.mjs .
+          git clone --quiet https://github.com/sjgant80-hub/fall-euaiact /tmp/fall-euaiact
+          git -C /tmp/fall-euaiact checkout --quiet 0946a52
+          node /tmp/fall-euaiact/tools/comply-build.mjs . --check

@@ -3,771 +3,569 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="aios-organ" content="fallstack" />
-<meta name="aios-layer" content="L3.organs.audit" />
-<meta name="prime" content="1321" />
-<meta name="description" content="◊ FallStack · sovereign SaaS audit + migration engine · drop your bill · we map every sub to a free sovereign replacement · the savings dashboard · MIT" />
-<title>◊ FallStack · your company on free organs</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext x='2' y='26' font-size='28' fill='%23b8974a'%3E%E2%97%8A%3C/text%3E%3C/svg%3E" />
-<style>
-:root{
-  --ox:#8b1a1a; --brass:#b8974a; --cream:#c4bfb2; --void:#0b0a0f;
-  --green:#3a7d3a; --dim:#7c7466; --line:rgba(184,151,74,.2);
-  --warm:#d4a857;
+<title>fallstack — the back office you rent, and the organ that replaces it</title>
+<meta name="description" content="fallstack prices a company's rented back office (CRM, finance, HR) from vendor list prices — every one sourced and dated in one registry — and names the estate organ that replaces each subscription, with its maturity read from what GitHub's runners did. The same registry feeds every estate build's cost case." />
+<link rel="canonical" href="https://sjgant80-hub.github.io/fallstack/" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="fallstack — the back office you rent, and the organ that replaces it" />
+<meta property="og:description" content="Vendor list prices, sourced and dated, against owned replacements with their real maturity." />
+<meta property="og:url" content="https://sjgant80-hub.github.io/fallstack/" />
+<meta name="theme-color" content="#0b0d10" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "WebApplication", "name": "fallstack", "url": "https://sjgant80-hub.github.io/fallstack/", "applicationCategory": "BusinessApplication", "operatingSystem": "Any modern browser",
+      "description": "The estate's registry of vendor list prices and public rates, each sourced and dated, and the SaaS audit that sets a company's rented back office against the owned organs that replace it, with each organ's maturity read from GitHub's runners.",
+      "creator": { "@type": "Organization", "name": "AI-Native Solutions", "url": "https://www.ai-nativesolutions.com/" }, "license": "https://opensource.org/licenses/MIT" },
+    { "@type": "FAQPage", "mainEntity": [
+      { "@type": "Question", "name": "Where do the prices come from?", "acceptedAnswer": { "@type": "Answer", "text": "Every price is a vendor's own list price or a public rate, quoted as the source states it, linked, and dated. The registry refuses an entry without a source, a date or a stated figure, and flags any entry older than 180 days." } },
+      { "@type": "Question", "name": "Which subscriptions does the estate replace?", "acceptedAnswer": { "@type": "Answer", "text": "CRM (FallCRM Elite, the fallforce repository), the finance ledger (FallLedger) and HR (FallHR). Ticketing, e-signature ceremonies and payroll are not replaced: no estate organ covers them yet, and the page says so." } },
+      { "@type": "Question", "name": "How finished is each replacement?", "acceptedAnswer": { "@type": "Answer", "text": "Each organ's rung on the ladder — Prototype, Works or Proven — is computed from GitHub's own record of what its workflows did, never typed. Proven means a mutation gate ran on GitHub's hardware and every mutant died; the page names the files that gate covers." } },
+      { "@type": "Question", "name": "How do estate builds use the registry?", "acceptedAnswer": { "@type": "Answer", "text": "A build pulls the entries it uses into prices.lock.json. konomify's basis gate fails the build if a locked entry differs from the registry, is missing from it or is stale, or if the build states a price anywhere that does not name a locked entry." } }
+    ] }
+  ]
 }
-*,*::before,*::after{box-sizing:border-box}
-html,body{margin:0;padding:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--void);color:var(--cream);min-height:100vh;line-height:1.6}
-body{background:radial-gradient(ellipse at top, rgba(139,26,26,.07), transparent 55%),radial-gradient(ellipse at bottom, rgba(184,151,74,.05), transparent 55%),var(--void);background-attachment:fixed}
-.ribbon{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--brass);text-transform:uppercase;letter-spacing:.2em;padding:14px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;background:rgba(0,0,0,.3);position:sticky;top:0;z-index:50;backdrop-filter:blur(8px)}
-.ribbon b{color:var(--cream)}
-.ribbon a{color:var(--brass);text-decoration:none}
-.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
-section{padding:60px 0;border-bottom:1px solid var(--line)}
-section:last-of-type{border-bottom:none}
-h1{font-family:'Libre Baskerville',Georgia,serif;font-weight:400;font-size:52px;margin:24px 0 14px;color:var(--cream);letter-spacing:-.015em;line-height:1.1}
-h1 .glyph{color:var(--brass);font-family:'IBM Plex Mono',monospace}
-h2{font-family:'Libre Baskerville',serif;font-weight:400;font-size:26px;color:var(--brass);margin:0 0 14px;letter-spacing:-.01em}
-h3{font-family:'Libre Baskerville',serif;font-weight:400;font-size:18px;color:var(--cream);margin:18px 0 10px}
-.sub{color:var(--dim);font-size:14px;margin-bottom:28px;font-family:'IBM Plex Mono',monospace;letter-spacing:.05em}
-.kicker{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--brass);text-transform:uppercase;letter-spacing:.25em;margin-bottom:14px}
-p{margin:0 0 14px}
-a{color:var(--brass);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
-a:hover{border-bottom-color:var(--brass)}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:transparent;border:1px solid var(--brass);color:var(--brass);font-family:'IBM Plex Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:.15em;cursor:pointer;border-radius:2px;transition:all .15s;text-decoration:none}
-.btn:hover{background:var(--brass);color:var(--void);border-bottom-color:var(--brass)}
-.btn.primary{background:var(--brass);color:var(--void)}
-.btn.primary:hover{background:var(--cream);border-color:var(--cream)}
-.btn.danger{border-color:var(--ox);color:var(--ox)}
-.btn.danger:hover{background:var(--ox);color:var(--cream)}
-.btn[disabled]{opacity:.4;cursor:not-allowed}
-.btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.card{background:rgba(255,255,255,.025);border:1px solid var(--line);padding:24px;border-radius:2px}
-.grid{display:grid;gap:18px}
-.grid-2{grid-template-columns:1fr 1fr}
-.grid-3{grid-template-columns:repeat(3,1fr)}
-.grid-4{grid-template-columns:repeat(4,1fr)}
-@media (max-width:880px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
-.stat{padding:18px;background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:2px}
-.stat .v{font-family:'IBM Plex Mono',monospace;font-size:30px;color:var(--cream);line-height:1}
-.stat .k{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.15em;margin-top:8px}
-.stat.green .v{color:var(--green)}
-.stat.brass .v{color:var(--brass)}
-.stat.ox .v{color:var(--ox)}
-.drop{padding:42px;border:2px dashed var(--line);text-align:center;border-radius:4px;background:rgba(0,0,0,.25);cursor:pointer;transition:all .15s}
-.drop:hover,.drop.over{border-color:var(--brass);background:rgba(184,151,74,.06)}
-.drop .glyph{font-size:42px;color:var(--brass);font-family:'IBM Plex Mono',monospace}
-.drop h3{margin:10px 0 6px;color:var(--cream)}
-.drop p{color:var(--dim);font-size:14px;margin:0}
-.drop input[type="file"]{display:none}
-input[type="text"],input[type="number"],select,textarea{width:100%;padding:11px 14px;background:rgba(0,0,0,.45);border:1px solid var(--line);color:var(--cream);font-family:inherit;font-size:14px;border-radius:2px;outline:none}
-textarea{min-height:120px;resize:vertical;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.55}
-input:focus,select:focus,textarea:focus{border-color:var(--brass)}
-label.label{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.12em;margin:14px 0 6px}
-table{width:100%;border-collapse:collapse;margin:14px 0}
-th,td{padding:12px 10px;text-align:left;border-bottom:1px solid var(--line);font-size:13px;vertical-align:top}
-th{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:var(--dim);font-weight:normal}
-tbody tr:hover{background:rgba(184,151,74,.04)}
-.amt{font-family:'IBM Plex Mono',monospace;color:var(--cream);text-align:right;white-space:nowrap}
-.amt.neg{color:var(--ox)}
-.amt.pos{color:var(--green)}
-.tag{display:inline-block;padding:3px 8px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;border-radius:1px;font-family:'IBM Plex Mono',monospace;border:1px solid var(--line);color:var(--cream)}
-.tag.match{background:rgba(58,125,58,.12);color:var(--green);border-color:var(--green)}
-.tag.partial{background:rgba(212,168,87,.12);color:var(--warm);border-color:var(--warm)}
-.tag.miss{background:rgba(139,26,26,.10);color:var(--ox);border-color:var(--ox)}
-.empty{padding:32px;text-align:center;color:var(--dim);font-family:'IBM Plex Mono',monospace;font-size:13px}
-.warning{padding:14px 18px;background:rgba(139,26,26,.1);border-left:3px solid var(--ox);color:var(--cream);font-size:14px;margin:18px 0;border-radius:2px}
-.success{padding:14px 18px;background:rgba(58,125,58,.1);border-left:3px solid var(--green);color:var(--cream);font-size:14px;margin:18px 0;border-radius:2px}
-.headline-savings{text-align:center;padding:42px 0;background:linear-gradient(180deg,rgba(58,125,58,.05),transparent);border:1px solid var(--green);border-radius:4px;margin:18px 0}
-.headline-savings .big{font-family:'Libre Baskerville',serif;font-size:64px;color:var(--green);line-height:1}
-.headline-savings .label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.2em;margin-top:10px}
-footer{padding:32px 24px;text-align:center;color:var(--dim);font-family:'IBM Plex Mono',monospace;font-size:11px;border-top:1px solid var(--line)}
-footer a{color:var(--brass)}
-.mono{font-family:'IBM Plex Mono',monospace;font-size:12px}
-.hero-quote{font-family:'Libre Baskerville',serif;font-style:italic;font-size:20px;color:var(--cream);border-left:2px solid var(--brass);padding:8px 0 8px 22px;margin:28px 0;max-width:640px}
-.manifesto{font-family:'Libre Baskerville',serif;font-size:18px;line-height:1.7;color:var(--cream);max-width:700px}
-.manifesto p{margin:0 0 18px}
-.manifesto b{color:var(--brass);font-weight:normal}
-details{margin:12px 0;background:rgba(0,0,0,.3);border:1px solid var(--line);padding:14px 18px;border-radius:2px}
-details summary{cursor:pointer;color:var(--brass);font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.12em;outline:none}
-details[open]{padding-bottom:18px}
-.replacement-link{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;background:rgba(184,151,74,.08);border:1px solid var(--brass);border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--brass);text-decoration:none}
-.replacement-link:hover{background:var(--brass);color:var(--void);border-bottom:1px solid var(--brass)}
+</script>
+<style>
+:root{--bg:#f6f7f9;--panel:#fff;--panel2:#eef1f5;--ink:#10151c;--muted:#566172;--faint:#8a94a3;--line:#dde3ea;--accent:#0e9f7e;--accent2:#2f6fed;--warn:#c47d0a;--bad:#d2413a;--good:#0e9f7e;--mono:ui-monospace,SFMono-Regular,Consolas,monospace;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;--r:14px;--maxw:1120px}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0b0d10;--panel:#12161c;--panel2:#171c24;--ink:#e7ecf2;--muted:#9aa5b4;--faint:#66707e;--line:#232a34;--accent:#39d0a8;--accent2:#6d9bff;--warn:#e8a93a;--bad:#f06a60;--good:#39d0a8}}
+:root[data-theme=dark]{--bg:#0b0d10;--panel:#12161c;--panel2:#171c24;--ink:#e7ecf2;--muted:#9aa5b4;--faint:#66707e;--line:#232a34;--accent:#39d0a8;--accent2:#6d9bff;--warn:#e8a93a;--bad:#f06a60;--good:#39d0a8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2)}code{font-family:var(--mono);font-size:.86em;background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:.05em .35em;overflow-wrap:anywhere}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 16px}
+nav.top{position:sticky;top:0;z-index:5;background:color-mix(in oklab,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;align-items:center;gap:14px;min-height:54px}
+nav.top b{white-space:nowrap}nav.top .links{display:flex;gap:12px;font-size:.84rem;overflow-x:auto;scrollbar-width:none;flex:1}nav.top .links a{color:var(--muted);text-decoration:none;white-space:nowrap}
+.theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:4px 10px;cursor:pointer;font-size:.8rem}
+header.hero{padding:46px 0 12px}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font-size:clamp(1.8rem,4.6vw,2.9rem);line-height:1.1;letter-spacing:-.025em;margin:.4rem 0 .7rem;font-weight:800;max-width:26ch}
+h2{font-size:clamp(1.3rem,3vw,1.75rem);letter-spacing:-.02em;margin:0 0 .4rem;font-weight:800}
+.lede{font-size:1.1rem;color:var(--muted);max-width:74ch}
+.stats{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));margin:20px 0 8px}
+.stat,.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
+.stat .v{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em;line-height:1.1;color:var(--accent)}
+.stat .t{color:var(--muted);font-size:.9rem;margin-top:5px}
+section{padding:28px 0}section+section{border-top:1px solid var(--line)}
+.step{font-family:var(--mono);font-size:.78rem;color:var(--accent);font-weight:700;letter-spacing:.08em}
+.sub{color:var(--muted);max-width:78ch;margin:.2rem 0 1rem}
+table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);font-weight:700}
+td.n{font-family:var(--mono);white-space:nowrap}.tw{overflow-x:auto}
+tr.total td{font-weight:800;border-top:2px solid var(--line)}
+.chip{font-family:var(--mono);font-size:.72rem;font-weight:700;padding:.1rem .45rem;border-radius:6px;display:inline-block;white-space:nowrap;border:1px solid var(--line);color:var(--muted)}
+.chip.proven,.chip.fresh{color:var(--good);border-color:color-mix(in oklab,var(--good) 45%,var(--line));background:color-mix(in oklab,var(--good) 10%,transparent)}
+.chip.works{color:var(--accent2);border-color:color-mix(in oklab,var(--accent2) 45%,var(--line))}
+.chip.prototype,.chip.kept{color:var(--warn);border-color:color-mix(in oklab,var(--warn) 45%,var(--line))}
+.chip.stale{color:var(--bad);border-color:color-mix(in oklab,var(--bad) 45%,var(--line))}
+.note{color:var(--muted);font-size:.9rem;border-left:3px solid var(--line);padding:.2rem 0 .2rem .8rem;margin:.8rem 0}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:.6rem 0}
+label.f{display:flex;flex-direction:column;gap:3px;font-size:.8rem;color:var(--muted);max-width:100%}
+input,select{font:inherit;color:var(--ink);background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:.35rem .5rem;max-width:100%}
+input[type=number]{width:96px}
+ul.tight{margin:.3rem 0;padding-left:1.1rem}ul.tight li{margin:.1rem 0}
+pre{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:.84rem}
+details{margin:.3rem 0}summary{cursor:pointer;font-weight:600}
+footer{padding:30px 0 56px;color:var(--muted);font-size:.86rem;border-top:1px solid var(--line)}
+@media (max-width:640px){nav.top{position:static}}
 </style>
-<script src="https://sjgant80-hub.github.io/fall-euaiact/cdn/audit-shim.js" data-tool="fallstack" data-tier="full" defer></script>
-<script src="https://sjgant80-hub.github.io/fall-euaiact/cdn/nas-shim.js" data-tool="fallstack" data-organ="L3.organs.audit"></script>
 </head>
 <body>
+<nav class="top"><div class="wrap">
+  <b>fallstack</b>
+  <div class="links"><a href="#audit">The audit</a><a href="#kept">Not replaced</a><a href="#registry">The price registry</a><a href="#builds">In every build</a><a href="#faq">FAQ</a></div>
+  <button class="theme" id="themeBtn" type="button">Theme</button>
+</div></nav>
+<div class="wrap">
+<header class="hero">
+  <div class="eyebrow">SaaS audit · one price registry · maturity from GitHub's runners</div>
+  <h1>The back office you rent by the seat, against the organ that replaces it.</h1>
+  <p class="lede">Every subscription is priced from the vendor's own list price — quoted, linked, dated, in one registry every estate build pulls from. Every replacement is an estate organ that covers the function, with what it covers, what it does not, and its rung on the ladder read from what GitHub's runners did.</p>
+  <div class="stats" id="stats"></div>
+</header>
 
-<div class="ribbon">
-  <span><b>◊ FallStack</b> · the SaaS audit + sovereign migration engine · prime 1321</span>
-  <span>sovereign · single-file · MIT · forever</span>
-</div>
-
-<main class="wrap">
-
-<!-- HERO -->
-<section id="hero">
-  <div class="kicker">/the SaaS audit/</div>
-  <h1><span class="glyph">◊</span> Your company is paying<br>£36,000 a year for nothing.</h1>
-  <p class="sub">/drop your bill/ /we map every sub to a free sovereign replacement/ /you cancel/ /the money comes back/</p>
-  <p style="max-width:660px;font-size:17px;color:var(--cream)">FallStack reads your accounting export or bank statement. For every SaaS line item, it shows you the free MIT-licensed organ that replaces it · with the data migration plan, the cancellation letter, and the annual savings. <b style="color:var(--brass)">17 sovereign organs replace 17 SaaS subscriptions.</b> Free forever. Single HTML file.</p>
-  <div class="btn-row" style="margin-top:24px">
-    <a href="#audit" class="btn primary">Drop your bill →</a>
-    <a href="#stack" class="btn">See the full stack</a>
-    <a href="#manifesto" class="btn">Why</a>
-  </div>
-  <p class="hero-quote">"You're paying SaaS prices for software that has been browser-native since 2017.<br>The infrastructure is in your browser. The wrapper should be free."</p>
-</section>
-
-<!-- AUDIT -->
 <section id="audit">
-  <div class="kicker">/step 1/</div>
-  <h2>Drop your bill</h2>
-  <p>Drag your accounting CSV (Xero, QuickBooks, FreeAgent · "subscriptions" or "expenses" export) or a bank statement. Or paste vendor names below. Parsed on your device · nothing uploads.</p>
-
-  <label class="drop" id="drop">
-    <div class="glyph">◊</div>
-    <h3>Drop a CSV or PDF here</h3>
-    <p>or click to choose · or paste vendor lines below</p>
-    <input type="file" id="file-input" accept=".csv,.pdf,.txt,application/pdf,text/csv,text/plain" />
-  </label>
-
-  <div style="margin-top:16px">
-    <label class="label">Or paste subscriptions directly (one per line · vendor and monthly cost):</label>
-    <textarea id="paste-area" placeholder="HubSpot         450
-Mailchimp       89
-Calendly        96
-Typeform        59
-DocuSign        125
-Granola         180
-QuickBooks      75
-Asana           120
-Notion          80
-..."></textarea>
-    <div class="btn-row" style="margin-top:12px">
-      <button class="btn primary" id="parse-btn">Audit the stack →</button>
-      <button class="btn" id="example-btn">Load example bill</button>
-    </div>
-  </div>
-
-  <div id="parse-status" class="mono" style="color:var(--dim);margin-top:14px"></div>
+  <div class="step">1 · THE AUDIT — A MODELLED 1,200-PERSON BANK'S RENTED BACK OFFICE</div>
+  <h2>Rent a year, ex VAT, at list price — and what replaces it.</h2>
+  <p class="sub">Users are floor-level assumptions for a modelled bank, not a client; change them. Prices come from the registry below.</p>
+  <div class="card"><div class="tw"><table id="auditTable"><thead><tr><th>Function</th><th>Rented</th><th>Users</th><th>Per year</th><th>Owned replacement</th><th>Ladder</th></tr></thead><tbody></tbody></table></div>
+  <div id="auditDetail"></div></div>
 </section>
 
-<!-- HEADLINE SAVINGS -->
-<section id="savings" style="display:none">
-  <div class="kicker">/the bottom line/</div>
-  <div class="headline-savings">
-    <div class="big" id="big-savings">£0</div>
-    <div class="label">annual savings if you migrate the entire stack</div>
-  </div>
-  <div class="grid grid-4">
-    <div class="stat ox"><div class="v" id="stat-current">£0</div><div class="k">current monthly burn</div></div>
-    <div class="stat green"><div class="v" id="stat-sovereign">£0</div><div class="k">sovereign replacement monthly</div></div>
-    <div class="stat brass"><div class="v" id="stat-matches">0 / 0</div><div class="k">subs matched to sovereign organs</div></div>
-    <div class="stat"><div class="v" id="stat-years">0</div><div class="k">years of payback (one-time switch)</div></div>
-  </div>
+<section id="kept">
+  <div class="step">2 · NOT REPLACED — SAID PLAINLY</div>
+  <h2>Where no estate organ covers the function yet.</h2>
+  <div class="card"><div class="tw"><table id="keptTable"><thead><tr><th>Function</th><th>Why it stays</th></tr></thead><tbody></tbody></table></div></div>
 </section>
 
-<!-- FINDINGS -->
-<section id="findings">
-  <div class="kicker">/the mapping/</div>
-  <h2>Your stack · sub by sub</h2>
-  <p>Each row is a vendor we detected. Green = direct sovereign replacement. Amber = partial replacement. Red = no MIT replacement yet · you'd still need to pay or fork your own.</p>
-
-  <div class="card" id="findings-card">
-    <div class="empty" id="findings-empty">Drop a bill above and the mapping appears here.</div>
-    <table id="findings-table" style="display:none">
-      <thead><tr>
-        <th>Vendor</th><th class="amt">Monthly</th><th class="amt">Annual</th><th>Replacement</th><th>Annual saved</th>
-      </tr></thead>
-      <tbody id="findings-tbody"></tbody>
-    </table>
-  </div>
-
-  <div class="btn-row" style="margin-top:20px">
-    <button class="btn" id="download-plan">Download migration plan (.md)</button>
-    <button class="btn" id="download-letters">Generate cancellation letters →</button>
-    <button class="btn" id="sign-envelope">Konomi-sign the audit envelope</button>
-  </div>
-  <p class="mono" id="sig-line" style="margin-top:12px;color:var(--green);word-break:break-all;font-size:11px"></p>
+<section id="registry">
+  <div class="step">3 · THE PRICE REGISTRY</div>
+  <h2>Every vendor price and public rate the estate uses — sourced, dated, fresh.</h2>
+  <p class="sub" id="regSub"></p>
+  <div class="row"><label class="f">Kind<select id="kindSel"><option value="">all</option></select></label></div>
+  <div class="card"><div class="tw"><table id="regTable"><thead><tr><th>Entry</th><th>Figure</th><th>As the source states it</th><th>Checked</th></tr></thead><tbody></tbody></table></div></div>
 </section>
 
-<!-- FULL STACK -->
-<section id="stack">
-  <div class="kicker">/the sovereign SMB stack/</div>
-  <h2>17 organs replace 17 subscriptions</h2>
-  <p>Every organ is a single HTML file. Runs on your device. MIT licence. Fork it. The whole stack ships as your browser's bookmarks.</p>
-
-  <div class="grid grid-3" id="organ-cards"></div>
-
-  <div class="warning" style="margin-top:24px">
-    <b>Gap-fills coming.</b> Some categories don't have a sovereign organ yet — accounting (full books), document signing, project management with deep features, internal chat. FallStack flags these honestly. If your company depends on one of them, factor that into the migration plan.
-  </div>
+<section id="builds">
+  <div class="step">4 · IN EVERY BUILD</div>
+  <h2>No build types a price. It pulls one.</h2>
+  <p class="sub">A build takes the entries it uses into <code>prices.lock.json</code>. konomify's basis gate — the gate every estate build passes — fails it if a locked entry differs from this registry, is missing from it, or is older than the registry allows, or if the build states a price anywhere that does not name a locked entry. The same gate requires the build's compliance map from <a href="https://sjgant80-hub.github.io/fall-euaiact/#build-map">fall-euaiact</a>.</p>
+<pre>node tools/price-check.mjs pull &lt;repo&gt; salesforce-pro-suite uk-vat fx-gbp-usd   # the lock
+node tools/price-check.mjs &lt;repo&gt;                                                # the check konomify runs</pre>
 </section>
 
-<!-- HOW -->
-<section id="how">
-  <div class="kicker">/the loop/</div>
-  <h2>How it works · 5 steps</h2>
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>1. Parse</h3>
-      <p>CSV or PDF parser reads your accounting export. Detects recurring vendor charges. Pattern engine identifies known SaaS vendors (HubSpot, Mailchimp, Calendly, etc).</p>
-    </div>
-    <div class="card">
-      <h3>2. Map</h3>
-      <p>Each detected vendor is matched to the corresponding sovereign organ (HubSpot → FallCRM, Mailchimp → FallList, etc) with a confidence score.</p>
-    </div>
-    <div class="card">
-      <h3>3. Cost</h3>
-      <p>Total monthly spend · total annual spend · sovereign-replacement cost (£0) · annual savings. Headline number front and centre.</p>
-    </div>
-    <div class="card">
-      <h3>4. Migrate</h3>
-      <p>Generates a migration plan: which organ to fork first, how to export your data from each vendor, how to import, in what order.</p>
-    </div>
-    <div class="card">
-      <h3>5. Cancel</h3>
-      <p>Cancellation letters per vendor citing your jurisdiction's consumer law (Consumer Rights Act · Omnibus · FTC Click-to-Cancel · ACL). Konomi-signed. Hand-off to FallBack.</p>
-    </div>
-    <div class="card">
-      <h3>6. Audit</h3>
-      <p>Konomi Ed25519 signs the audit envelope · provable provenance for board reporting. "We saved £X across 12 months · here's the cryptographic receipt."</p>
-    </div>
+<section id="faq">
+  <div class="step">FAQ</div>
+  <h2>Questions, answered.</h2>
+  <div class="card">
+    <h3>Where do the prices come from?</h3><p>Every price is a vendor's own list price or a public rate, quoted as the source states it, linked, and dated. The registry refuses an entry without a source, a date or a stated figure, and flags any entry older than 180 days.</p>
+    <h3>Which subscriptions does the estate replace?</h3><p>CRM (FallCRM Elite, the fallforce repository), the finance ledger (FallLedger) and HR (FallHR). Ticketing, e-signature ceremonies and payroll are not replaced: no estate organ covers them yet, and the page says so.</p>
+    <h3>How finished is each replacement?</h3><p>Each organ's rung on the ladder — Prototype, Works or Proven — is computed from GitHub's own record of what its workflows did, never typed. Proven means a mutation gate ran on GitHub's hardware and every mutant died; the page names the files that gate covers.</p>
+    <h3>How do estate builds use the registry?</h3><p>A build pulls the entries it uses into prices.lock.json. konomify's basis gate fails the build if a locked entry differs from the registry, is missing from it or is stale, or if the build states a price anywhere that does not name a locked entry.</p>
   </div>
 </section>
-
-<!-- MANIFESTO -->
-<section id="manifesto">
-  <div class="kicker">/why/</div>
-  <h2>The manifesto</h2>
-  <div class="manifesto">
-    <p>A small company in 2026 pays somewhere between <b>£20,000 and £57,000 a year</b> for SaaS subscriptions. The line items repeat: CRM, email marketing, scheduling, forms, invoicing, accounting, HR, document signing, meeting notes, LinkedIn engagement, project management, knowledge base, customer support.</p>
-    <p>Every single one of those line items is, structurally, <b>a wrapper around 3-5 browser APIs</b>. We know this because we have built the sovereign versions, single-file each, MIT, free forever. They are not theoretically possible · they are <b>shipped</b>.</p>
-    <p>The reason your accountant doesn't know this is that the wrapper layer has been priced like infrastructure for so long that <b>"that's how software works"</b> is the assumption. But infrastructure is in the browser. Has been since 2017. The wrapper layer is just where the rent gets extracted.</p>
-    <p>FallStack is what happens when you point a small language model at your accounting export and say: <b>map every line item to its free replacement</b>. The savings are not theoretical. They are extractable in two hours of operator time.</p>
-    <p>This isn't a SaaS-killer pitch. The SaaS layer survives anywhere the wrapper adds real value · advanced integrations, dedicated support, regulated industries, large-team coordination. The point is that the <b>default</b> shouldn't be paying £40k/year for software whose entire job is to call browser APIs your browser already implements.</p>
-    <p>The default should be sovereign. The exception should be SaaS.</p>
-    <p style="color:var(--brass)">For the people. Not the few.</p>
-  </div>
-</section>
-
-</main>
 
 <footer>
-  ◊ FallStack · prime 1321 · MIT · sovereign · single-file · forever<br>
-  Built by <a href="https://www.linkedin.com/in/simon-gant-295b56180/">Simon Gant</a> · architecture lineage: Thomas Frumkin · MianoCube<br>
-  Part of the <a href="https://sjgant80-hub.github.io/fall-registry/">AI Native Solutions estate</a> · 140+ sovereign tools<br>
-  <a href="https://github.com/sjgant80-hub/fallstack">source on GitHub</a> · <a href="https://sjgant80-hub.github.io/fallcorp/">FallCorp · the bundled shell</a> · <span style="color:var(--dim)">for the people · not the few</span>
+  <p><b>fallstack</b> — AI-Native Solutions · MIT · <a href="https://github.com/sjgant80-hub/fallstack">source</a> · <a href="llms.txt">llms.txt</a> · <a href="compliance.html">compliance map</a></p>
+  <p>Powered by the Konomi architecture, created by Thomas Frumkin. The ladder is fallworld's tier kernel, vendored verbatim.</p>
 </footer>
+</div>
+
+<!-- ⟦DATA-BEGIN⟧ generated by tools/make-page.mjs — do not edit here -->
+<script type="application/json" id="stackData">{"registry":{"_rule":"The estate's one registry of vendor list prices and public rates. Every entry quotes or states its figure, links the page it came from and gives the date it was checked. Builds pull entries into their prices.lock.json and never retype a price; konomify's basis gate fails a build whose lock differs from this registry, names an entry it does not hold, or leans on an entry older than maxAgeDays.","maxAgeDays":180,"entries":[{"id":"m365-copilot","kind":"seat","product":"Microsoft 365 Copilot (enterprise)","price":23.1,"currency":"GBP","per":"user / month, paid yearly, annual commitment","vat":"excluded","quote":"£23.10 user/month, paid yearly … Price does not include VAT.","addOn":"Added to an existing Microsoft 365 licence, which both sides of this comparison keep.","maxSeats":null,"source":"https://www.microsoft.com/en-gb/microsoft-365-copilot/enterprise","checked":"2026-09-29"},{"id":"chatgpt-business","kind":"seat","product":"ChatGPT Business (standard seat)","price":15,"currency":"GBP","per":"seat / month, billed annually","vat":"not stated","quote":"Standard seat £15 / month … £15/month if billed annually.","addOn":null,"maxSeats":null,"source":"https://chatgpt.com/pricing/","checked":"2026-09-29"},{"id":"claude-enterprise","kind":"seat","product":"Claude Enterprise","price":20,"currency":"USD","per":"seat / month, billed annually, plus usage at API rates","vat":"not stated","quote":"Seat price + usage at API rates US$20/seat/month, billed annually.","addOn":null,"plusUsage":true,"maxSeats":null,"source":"https://claude.com/pricing","checked":"2026-09-29"},{"id":"claude-team","kind":"seat","product":"Claude Team (standard seat)","price":18,"currency":"GBP","per":"seat / month, billed annually","vat":"included","quote":"For teams of 2 to 150 … £18 Per seat / month if billed annually … Prices include 20% VAT","addOn":null,"maxSeats":150,"source":"https://claude.com/pricing","checked":"2026-09-29"},{"id":"gpt-5-nano","kind":"api","provider":"OpenAI","model":"gpt-5-nano","inPerM":0.05,"outPerM":0.4,"currency":"USD","source":"https://developers.openai.com/api/docs/pricing","checked":"2026-09-29"},{"id":"gpt-5-mini","kind":"api","provider":"OpenAI","model":"gpt-5-mini","inPerM":0.25,"outPerM":2,"currency":"USD","source":"https://developers.openai.com/api/docs/pricing","checked":"2026-09-29"},{"id":"gemini-3.1-flash-lite","kind":"api","provider":"Google","model":"Gemini 3.1 Flash-Lite","inPerM":0.25,"outPerM":1.5,"currency":"USD","source":"https://ai.google.dev/gemini-api/docs/pricing","checked":"2026-09-29"},{"id":"claude-haiku-4.5","kind":"api","provider":"Anthropic","model":"Claude Haiku 4.5","inPerM":1,"outPerM":5,"currency":"USD","source":"https://platform.claude.com/docs/en/about-claude/pricing","checked":"2026-09-29"},{"id":"claude-sonnet-5","kind":"api","provider":"Anthropic","model":"Claude Sonnet 5","inPerM":2,"outPerM":10,"currency":"USD","source":"https://platform.claude.com/docs/en/about-claude/pricing","checked":"2026-09-29"},{"id":"uk-vat","kind":"rate","value":0.2,"why":"UK standard rate of VAT","source":"https://www.gov.uk/vat-rates","checked":"2026-09-29"},{"id":"fx-gbp-usd","kind":"fx","gbpPerUsd":0.75396,"how":"ECB euro reference rates for 2026-09-28: USD 1.1378 and GBP 0.85785 per euro, so GBP per USD = 0.85785 / 1.1378","source":"https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml","checked":"2026-09-29"},{"id":"desnz-electricity-nondomestic","kind":"energy","pencePerKwh":24.51,"what":"UK non-domestic electricity, average price including Climate Change Levy, quarter 2 2026","quote":"In quarter 2 2026, the average electricity price including CCL was 24.51 pence per kWh","source":"https://assets.publishing.service.gov.uk/media/6aba2810fe72ed1e2b02f0e7/Quarterly_Energy_Prices_September_2026.pdf","publisher":"DESNZ, Quarterly Energy Prices, September 2026 (published 29 September 2026)","checked":"2026-09-29"},{"id":"intel-i7-1255u-power","kind":"power","wattsLow":15,"wattsHigh":55,"chip":"Intel Core i7-1255U","how":"Intel's published figures for the chip: Processor Base Power 15 W (the rated sustained power) and Maximum Turbo Power 55 W. The model uses 15 W for the extra draw of AI work on a laptop that is already on for the employee — change it on the page.","source":"https://www.intel.com/content/www/us/en/products/sku/226259/intel-core-i71255u-processor-12m-cache-up-to-4-70-ghz/specifications.html","checked":"2026-09-29"},{"id":"ons-ashe-2025-it-salaries","kind":"salaries","what":"ONS, Annual Survey of Hours and Earnings 2025 (provisional), Table 14.7a, median gross annual pay, full-time employee jobs, United Kingdom","source":"https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/occupation4digitsoc2010ashetable14","checked":"2026-09-29","roles":{"2132":{"title":"IT managers","median":56438},"2133":{"title":"IT business analysts, architects and systems designers","median":60288},"2134":{"title":"Programmers and software development professionals","median":56914},"2135":{"title":"Cyber security professionals","median":54647}},"note":"UK medians, not London rates and not market rates for specialist AI engineers — the page lets you change them."},{"id":"ons-cpi","kind":"rate","value":0.031,"what":"UK Consumer Prices Index, 12-month rate to August 2026","quote":"The Consumer Prices Index (CPI) rose by 3.1% in the 12 months to August 2026","publisher":"ONS, Consumer price inflation, UK: August 2026 (released 16 September 2026)","source":"https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/august2026","checked":"2026-09-29","how":"Applied every year to seats, both teams, compliance work, people's time and electricity. API token prices are not inflated."},{"id":"uk-national-living-wage","kind":"rate","value":12.71,"what":"National Living Wage (21 and over), per hour, from 1 April 2026 — the legal floor, used as the cost of an hour of the staff time the AI takes over","quote":"National Living Wage (21 and over) £12.71","source":"https://www.gov.uk/government/news/national-living-wage-increases-to-1271-per-hour","checked":"2026-09-29"},{"id":"ons-ashe-2025-median-hourly","kind":"rate","value":19.67,"what":"ONS Annual Survey of Hours and Earnings 2025: median hourly earnings (excluding overtime), full-time employees, UK, April 2025 — used only in the sensitivity table","quote":"Median hourly earnings (excluding overtime) for full-time employees were £19.67 an hour in April 2025","source":"https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/bulletins/annualsurveyofhoursandearnings/2025","checked":"2026-09-29"},{"id":"boe-inflation-target","kind":"rate","value":0.02,"what":"The UK inflation target the Government sets the Bank of England — used only in the sensitivity table","quote":"The Government sets us a 2% inflation target","source":"https://www.bankofengland.co.uk/monetary-policy/inflation","checked":"2026-09-29"},{"id":"microsoft-365-2026-rise","kind":"rise","what":"Microsoft's 1 July 2026 update raised Microsoft 365 plan prices — from 5% (Microsoft 365 E5, US$57 to US$60) to 33% (Microsoft 365 F1, US$2.25 to US$3.00). Microsoft 365 Copilot is not among the plans in that price table: the Copilot seat on this page is Microsoft's current UK list price.","quote":"Pricing updates take effect July 1, 2026.","low":0.05,"high":0.33,"source":"https://www.microsoft.com/en-us/licensing/news/2026-m365-packaging-pricing-updates","checked":"2026-09-29","note":"Both sides keep their Microsoft 365 plans, so this rise is in neither total. It is evidence that the corporate bill rises; the model inflates the corporate lines by CPI, not by this rise."},{"id":"gpt-4o-mini","kind":"api","provider":"OpenAI","model":"gpt-4o-mini","inPerM":0.15,"outPerM":0.6,"currency":"USD","tier":"standard","source":"https://developers.openai.com/api/docs/pricing","checked":"2026-09-29"},{"id":"ofgem-price-cap-2026-q4","kind":"energy","pencePerKwh":26.32,"period":"1 October to 31 December 2026","how":"Ofgem energy price cap, GB average electricity unit rate, Direct Debit. The page states there is no VAT on electricity from 1 October 2026 to 31 March 2027.","source":"https://www.ofgem.gov.uk/your-energy-supply/your-energy-bill/energy-price-cap-unit-rates-and-standing-charges","checked":"2026-09-29"},{"id":"salesforce-pro-suite","kind":"saas","vendor":"Salesforce","product":"Salesforce Pro Suite","function":"crm","price":80,"currency":"GBP","per":"user / month, billed annually","vat":"not stated","quote":"£ 80 GBP/User/Month (Billed annually)","note":"The flexible CRM suite across sales, service, marketing and commerce; the cheapest paid suite above the small-team Starter.","source":"https://www.salesforce.com/uk/sales/pricing/","checked":"2026-09-30"},{"id":"salesforce-core","kind":"saas","vendor":"Salesforce","product":"Salesforce Core (Sales)","function":"crm","price":156,"currency":"GBP","per":"user / month, billed annually","vat":"not stated","quote":"£ 156 GBP/User/Month (Billed annually)","note":"The CRM for sales with built-in AI, Slack, Tableau and Agentforce skills.","source":"https://www.salesforce.com/uk/sales/pricing/","checked":"2026-09-30"},{"id":"dynamics-365-finance","kind":"saas","vendor":"Microsoft","product":"Dynamics 365 Finance","function":"finance","price":161.5,"currency":"GBP","per":"user / month, paid yearly","vat":"excluded","quote":"£161.50 user/month, paid yearly … Price does not include VAT.","source":"https://www.microsoft.com/en-gb/dynamics-365/products/finance/pricing","checked":"2026-09-30"},{"id":"dynamics-365-human-resources","kind":"saas","vendor":"Microsoft","product":"Dynamics 365 Human Resources","function":"hr","price":103.8,"currency":"GBP","per":"user / month, paid yearly","vat":"excluded","quote":"£103.80 user/month, paid yearly … Price does not include VAT.","source":"https://www.microsoft.com/en-gb/dynamics-365/products/human-resources/pricing","checked":"2026-09-30"},{"id":"salesforce-2025-rise","kind":"rise","what":"Salesforce raised list prices for its Enterprise and Unlimited editions of Sales Cloud, Service Cloud, Field Service and select Industries Clouds by an average of 6% on 1 August 2025; Starter and Pro editions were not changed.","quote":"On August 1, 2025, list prices will increase by an average of 6%.","low":0.06,"high":0.06,"source":"https://www.salesforce.com/news/stories/pricing-update-2025/","checked":"2026-09-30"}]},"organs":{"_rule":"The business functions a company rents SaaS for, and the estate organ that replaces each — claimed only where the organ covers the function, with what it covers and what it does not, read from the organ's own page. An organ's maturity is never written here: it is the ladder's verdict from what GitHub's runners did (registry/tier-evidence.json, generated by tools/tiers.mjs). byok: true means the organ ships an optional bring-your-own-key route to a cloud model (off by default); a deployment that promises no data leaves the building switches it off.","functions":[{"fn":"crm","label":"CRM — contacts, companies, deals and pipeline, activities, sales forecast","organ":"fallforce","organName":"FallCRM Elite","covers":["contacts and companies","deals and pipeline stages","activities, tasks and sequences","sales goals","email","the sales forecast (forecast.mjs, mutation-gated)"],"gaps":["records shared live across a team — each browser keeps its own data today, so shared records on the company's own mesh are the hardening work","single sign-on","connectors to the bank's own systems"],"byok":true},{"fn":"finance","label":"Finance ledger — chart of accounts, journals, trial balance, P&L, balance sheet, cash flow, VAT, period close","organ":"fallledger","organName":"FallLedger","covers":["double-entry journals on a UK chart of accounts","trial balance, profit and loss, balance sheet, cash-flow statement","VAT return","period close","multi-currency","import from FallInvoice / FallAP / FallAccount","the ledger kernel (ledger.mjs, mutation-gated)"],"gaps":["multi-entity consolidation","accounts payable and receivable workflows at bank scale","books shared live across the finance team","single sign-on"],"byok":true},{"fn":"hr","label":"HR — employee records, contracts, absence, holiday, performance","organ":"fallhr","organName":"FallHR","covers":["employee records","contracts and the s.1 Employment Rights Act 1996 written statement","absence, sickness, fit notes and the Bradford Factor","holiday","performance reviews and improvement plans","a hash-linked audit chain (audit-chain.mjs, mutation-gated)"],"gaps":["payroll — the estate has no payroll run engine","records shared live across the HR team","single sign-on"],"byok":true},{"fn":"helpdesk","label":"Customer-service ticketing — queues, SLAs, the agent workspace","organ":null,"why":"No estate organ runs a ticket queue yet. fallfloor triages tickets and drafts replies on the company's own laptops; the ticketing system itself stays."},{"fn":"esign","label":"E-signature — a signing ceremony for customers and counterparties","organ":null,"why":"fallsignature signs and verifies content (Ed25519) but runs no signing ceremony for counterparties, so it does not replace an e-signature service."},{"fn":"payroll","label":"Payroll — running pay, PAYE and RTI submissions","organ":null,"why":"The estate has no payroll run engine."}]},"evidence":{"fallforce":[{"name":"gate","conclusion":"success","mutation":true,"pinned":true,"sha":"6496070","at":"2026-08-24","mutates":["forecast.mjs","catalogue.mjs"]},{"name":"pages-build-deployment","conclusion":"success","mutation":false,"pinned":false,"sha":"6496070","at":"2026-08-24","mutates":[]}],"fallledger":[{"name":"gate","conclusion":"success","mutation":true,"pinned":true,"sha":"d46d335","at":"2026-09-16","mutates":["ledger.mjs"]},{"name":"pages-build-deployment","conclusion":"success","mutation":false,"pinned":false,"sha":"d46d335","at":"2026-09-16","mutates":[]}],"fallhr":[{"name":"gate","conclusion":"success","mutation":true,"pinned":true,"sha":"59479fc","at":"2026-08-17","mutates":["audit-chain.mjs","audit.mjs"]},{"name":"pages-build-deployment","conclusion":"success","mutation":false,"pinned":false,"sha":"59479fc","at":"2026-08-17","mutates":[]}]},"stack":[{"fn":"crm","rent":"salesforce-pro-suite","users":100,"why":"Sales, relationship and marketing staff: about one in ten of the bank's people."},{"fn":"finance","rent":"dynamics-365-finance","users":20,"why":"The finance team's full users."},{"fn":"hr","rent":"dynamics-365-human-resources","users":12,"why":"The HR team's full users; employee self-service is not counted."}]}</script>
+<!-- ⟦DATA-END⟧ -->
 
 <script type="module">
-'use strict';
+// ⟦KERNEL-BEGIN⟧ generated from tier.mjs, prices.mjs and stack.mjs by tools/make-page.mjs — do not edit here
+// ── tier.mjs (own scope) ──
+const { tierOf } = (() => {
+// tier.mjs — HOW FINISHED IS IT? Answered from evidence, never from a claim.
+//
+// The estate's problem was not that things were unfinished. It was that a rough prototype and a
+// properly tested build looked identical on every surface, so everything read as equally solid —
+// which means nothing did. This is the ladder that separates them.
+//
+//   PROTOTYPE  it exists. Maybe it opens. Nobody has checked the code.
+//   WORKS      a machine ran its tests, on hardware we do not own, and they passed.
+//   PROVEN     that machine also tried to BREAK the tests — a mutation gate — and failed.
+//
+// ⚑ THERE IS NO SETTER. tierOf() reads GitHub's own record of what ran on GitHub's own hardware.
+// A repo cannot describe itself upward, and neither can its author. This is the same rule that makes
+// rarity mean something in fallworld: the label is a measurement, not a badge.
+//
+// ⚑ AND GITHUB'S PAGES DEPLOY IS NOT A TEST. "pages build and deployment" runs on almost every repo
+// here and proves only that a file was copied to a web server. Counting it as evidence would hand
+// 36 repos a tier they never earned, which is precisely the lie this kernel exists to stop.
+//
+// Pure: no I/O, no clock, no network. The caller gathers the evidence and passes it in.
 
-// =====================================================================
-// FallStack · prime 1321 · SaaS audit + sovereign migration engine
-// =====================================================================
+const TIERS = ['prototype', 'works', 'proven'];
 
-const $ = (s) => document.querySelector(s);
-
-// ── THE STACK · the sovereign SMB replacement map ───────────────────
-const STACK = [
-  // CRM · sales
-  { id:'fallcrm',      name:'FallCRM',        cat:'CRM',          replaces:['hubspot','salesforce','pipedrive','copper','zoho crm','close','keap','agile crm'],         url:'https://sjgant80-hub.github.io/fallcrm/',        coverage:'full' },
-  { id:'fallforce',    name:'FallForce',      cat:'CRM master',   replaces:['salesforce','hubspot enterprise','pega'],                                                  url:'https://github.com/sjgant80-hub/fallforce',       coverage:'full' },
-  // Email marketing
-  { id:'falllist',     name:'FallList',       cat:'Email mkt',    replaces:['mailchimp','klaviyo','sendinblue','brevo','mailerlite','convertkit','beehiiv','substack','active campaign','campaign monitor','constant contact'], url:'https://sjgant80-hub.github.io/falllist/', coverage:'full' },
-  { id:'fallreach',    name:'FallReach',      cat:'Email mkt',    replaces:['lemlist','reply.io','outreach','salesloft','apollo','instantly','smartlead','quickmail'],   url:'https://github.com/sjgant80-hub/fallreach',       coverage:'full' },
-  // Scheduling
-  { id:'fallslot',     name:'FallSlot',       cat:'Scheduling',   replaces:['calendly','cal.com','acuity','setmore','squarespace scheduling','doodle','savvycal','x.ai','tidycal'],          url:'https://sjgant80-hub.github.io/fallslot/',       coverage:'full' },
-  // Forms
-  { id:'fallform',     name:'FallForm',       cat:'Forms',        replaces:['typeform','jotform','google forms','wufoo','formstack','tally','paperform','fillout'],     url:'https://sjgant80-hub.github.io/fallform/',       coverage:'full' },
-  // Invoicing / billing
-  { id:'fallinvoice',  name:'FallInvoice',    cat:'Invoicing',    replaces:['stripe billing','stripe invoicing','chargebee','recurly','invoiced','invoice ninja','wave','zoho invoice','quickbooks invoicing'], url:'https://sjgant80-hub.github.io/fallinvoice/', coverage:'full' },
-  // AP · invoice rewriting
-  { id:'fallap',       name:'FallAP',         cat:'Accounts Payable', replaces:['bill.com','tipalti','airbase','melio','plooto','ramp ap','spendesk'],                  url:'https://sjgant80-hub.github.io/fallap/',         coverage:'partial' },
-  // Cashflow
-  { id:'fallflow',     name:'FallFlow',       cat:'Cashflow',     replaces:['float','agicap','pulse','cashflow frog','dryrun'],                                          url:'https://sjgant80-hub.github.io/fallflow/',       coverage:'full' },
-  // HR · interviews
-  { id:'fallhire',     name:'FallHire',       cat:'HR · ATS',     replaces:['bamboohr','greenhouse','lever','workable','breezy hr','ashby','jobvite','rippling ats','recruitee'],         url:'https://sjgant80-hub.github.io/fallhire/',       coverage:'partial' },
-  // Carousel · content
-  { id:'fallcarousel', name:'FallCarousel',   cat:'LinkedIn carousel', replaces:['supergrow','adobe express','canva','crello','aippt','postwise carousel'],             url:'https://sjgant80-hub.github.io/fallcarousel/',   coverage:'full' },
-  // LinkedIn engagement
-  { id:'fallpost',     name:'FallPost',       cat:'LinkedIn eng', replaces:['buffer','hootsuite','sprout social','later','postwise','taplio','hypefury','authoredup','shield'],          url:'https://sjgant80-hub.github.io/fallpost/',       coverage:'full' },
-  { id:'fallguild',    name:'FallGuild',      cat:'LinkedIn pods',replaces:['lempod','podawaa','engagement pods'],                                                       url:'https://sjgant80-hub.github.io/fallguild/',      coverage:'full' },
-  // Meeting notes
-  { id:'fallscribe',   name:'FallScribe',     cat:'Meeting notes',replaces:['granola','otter.ai','fireflies','fathom','tactiq','read ai','sembly','tldv','gong','chorus.ai','jamie','rev','grain','briefly'],                  url:'https://sjgant80-hub.github.io/fallscribe/',     coverage:'full' },
-  // Audio content
-  { id:'audiofabric',  name:'AudioFabric',    cat:'Audio content',replaces:['descript','riverside','adobe podcast','wondercraft'],                                       url:'https://sjgant80-hub.github.io/audiofabric/',    coverage:'full' },
-  // Subscription audit
-  { id:'fallback',     name:'FallBack',       cat:'Rights / refund', replaces:['rocket money','truebill','bobby','subscriptions tracker'],                              url:'https://sjgant80-hub.github.io/fallback/',       coverage:'full' },
-  // Personal AI
-  { id:'botler',       name:'Botler',         cat:'Personal AI',  replaces:['mem','rewind','reflect','tana','notion ai'],                                                 url:'https://sjgant80-hub.github.io/botler/',         coverage:'partial' },
-  // Legal (UK)
-  { id:'groundlevel',  name:'GroundLevel',    cat:'Legal research (UK)', replaces:['legalzoom','lexisnexis','westlaw','rocket lawyer','farewill'],                       url:'https://sjgant80-hub.github.io/groundlevel/',    coverage:'partial' },
-  // Compliance · EU AI Act
-  { id:'fall-euaiact', name:'fall-euaiact',   cat:'AI Act compliance', replaces:['holisticai','credo','fairly ai','airbox.ai','enzai','dataguard','onetrust ai'],         url:'https://sjgant80-hub.github.io/fall-euaiact/',   coverage:'full' },
-  // Consulting / strategy
-  { id:'operator',     name:'OPERATOR',       cat:'Strategy cascade', replaces:['mckinsey solutions','luminary','flash','bain delivery'],                                url:'https://sjgant80-hub.github.io/operator/',       coverage:'partial' },
-  // ExitEngine (business OS)
-  { id:'exitengine',   name:'ExitEngine',     cat:'Business OS · solo', replaces:['gusto','rippling','justworks','deel for solos'],                                       url:'https://sjgant80-hub.github.io/exitengine/',     coverage:'partial' },
-];
-
-// Common UK/US monthly costs for fallback when we can't detect actual charge
-const TYPICAL_COSTS = {
-  hubspot:450, salesforce:1500, pipedrive:90, mailchimp:89, klaviyo:200, calendly:96, typeform:59,
-  docusign:125, granola:180, quickbooks:75, xero:65, asana:120, notion:80, slack:200, intercom:299,
-  zendesk:495, buffer:50, hootsuite:99, monday:80, jira:75, confluence:60, otter:30, fireflies:36,
-  airtable:120, gusto:240, rippling:300, bamboohr:120, greenhouse:600, lever:600, descript:24,
-  riverside:30, deel:50, bill:79, ramp:0, brex:0, mercury:0, stripe:0,
-};
-
-// =====================================================================
-// STATE
-// =====================================================================
-const state = {
-  vendors: [],         // [{name, monthly, annual, matched, organ, savings, coverage}]
-  unmatched: [],
-  sigHex: null,
-  audit_envelope: null,
-};
-
-// =====================================================================
-// PARSERS · CSV + paste
-// =====================================================================
-function parseCSV(text) {
-  const lines = text.split(/\r?\n/).filter(l => l.trim());
-  const out = [];
-  let startIdx = 0;
-  const header = (lines[0]||'').toLowerCase();
-  if (header.includes('date') || header.includes('vendor') || header.includes('amount') || header.includes('description')) startIdx = 1;
-  for (let i = startIdx; i < lines.length; i++) {
-    const cells = splitCSV(lines[i]);
-    if (!cells.length) continue;
-    // try to find description and amount
-    let desc=null, amount=null;
-    for (const c of cells) {
-      const t = (c||'').trim();
-      if (!amount && /^[-+]?\s*[£$€]?\s*-?\d[\d,]*\.?\d{0,2}$/.test(t.replace(/\s/g,''))) {
-        amount = Math.abs(parseFloat(t.replace(/[£$€,\s]/g,'')));
-      } else if (!desc && t.length > 2) desc = t;
-    }
-    if (desc && amount && amount > 0) out.push({ description: desc, amount });
-  }
-  return out;
+/** Where a tier sits on the ladder. Unknown names are -1, NOT 0 — 0 is a real rung, and an unknown
+ *  string ranking as a real rung is how a typo silently becomes a grade. */
+function rank(tier) {
+  const i = TIERS.indexOf(String(tier));
+  return i;
 }
-function splitCSV(line) {
-  const out = []; let cur=''; let inQ=false;
-  for (let i=0;i<line.length;i++) {
-    const c=line[i];
-    if (c==='"' && line[i+1]==='"') { cur+='"'; i++; }
-    else if (c==='"') inQ=!inQ;
-    else if (c===',' && !inQ) { out.push(cur); cur=''; }
-    else cur+=c;
-  }
-  out.push(cur);
-  return out;
+
+/** GitHub's automatic deploy jobs. They publish; they do not check. */
+const AUTOMATIC = /^(pages build and deployment|deploy static content to pages|pages-build-deployment)$/i;
+
+function isAutomatic(name) {
+  return AUTOMATIC.test(String(name == null ? '' : name).trim());
 }
-function parsePasted(text) {
-  const lines = text.split(/\r?\n/).filter(l => l.trim());
-  const out = [];
-  for (const line of lines) {
-    // last token = amount, rest = vendor
-    const parts = line.trim().split(/\s+/);
-    if (parts.length < 1) continue;
-    const last = parts[parts.length-1].replace(/[£$€,]/g,'');
-    const v = parseFloat(last);
-    if (!isNaN(v) && parts.length >= 2) {
-      out.push({ description: parts.slice(0, -1).join(' '), amount: v });
-    } else {
-      // just vendor name, look up typical cost
-      const vendorOnly = parts.join(' ');
-      const lookup = TYPICAL_COSTS[vendorOnly.toLowerCase().split(' ')[0]];
-      if (lookup !== undefined) out.push({ description: vendorOnly, amount: lookup });
-      else out.push({ description: vendorOnly, amount: 0 });
-    }
+
+/**
+ * Evidence for one repo: an array of workflow records, each
+ *   { name, conclusion, mutation, pinned, sha, at }
+ * `mutation` says the workflow file actually invokes a mutation gate. `conclusion` is GitHub's.
+ */
+function tierOf(evidence, opts) {
+  // A default parameter does not fire on an explicit null, and null is exactly what a caller reading
+  // a missing key hands you. Normalise first, then destructure.
+  const { live = false } = (opts && typeof opts === 'object') ? opts : {};
+  const flows = (Array.isArray(evidence) ? evidence : [])
+    .filter(f => f && typeof f === 'object' && !isAutomatic(f.name));
+
+  const green = flows.filter(f => f.conclusion === 'success');
+  const gate = green.find(f => f.mutation === true);
+
+  if (gate) {
+    return {
+      tier: 'proven',
+      why: `a mutation gate ran on GitHub's hardware and every mutant died`
+         + (gate.pinned ? `, against a pinned checker` : ``),
+      workflow: gate.name || null,
+      sha: gate.sha || null,
+    };
+  }
+  if (green.length) {
+    return {
+      tier: 'works',
+      why: `tests ran on GitHub's hardware and passed, but nothing tried to break the tests themselves`,
+      workflow: green[0].name || null,
+      sha: green[0].sha || null,
+    };
+  }
+  // Everything else. The distinction that remains is only whether a person can open it.
+  return {
+    tier: 'prototype',
+    why: flows.length
+      ? `it has a workflow, but the last run did not pass`
+      : (live ? `it opens, and no machine has ever checked the code` : `nothing runs it and nothing opens it`),
+    workflow: flows.length ? (flows[0].name || null) : null,
+    sha: null,
+  };
+}
+
+/**
+ * Count a set of builds by tier. Returns every tier as a key even when zero — a missing key reads as
+ * "not measured" and a zero reads as "measured, none", and only one of those is the truth.
+ */
+function tally(rows) {
+  const out = { prototype: 0, works: 0, proven: 0 };
+  for (const r of (Array.isArray(rows) ? rows : [])) {
+    const t = r && r.tier;
+    if (rank(t) >= 0) out[t]++;
   }
   return out;
 }
 
-async function parsePDF(buffer) {
-  if (!window.pdfjsLib) {
-    await new Promise((res, rej) => {
-      const s = document.createElement('script');
-      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-      s.onload = res; s.onerror = rej;
-      document.head.appendChild(s);
-    });
-    window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-  }
-  const pdf = await window.pdfjsLib.getDocument({ data: buffer }).promise;
-  let text = '';
-  for (let p = 1; p <= pdf.numPages; p++) {
-    const page = await pdf.getPage(p);
-    const tc = await page.getTextContent();
-    text += tc.items.map(i => i.str).join(' ') + '\n';
-  }
-  // find pattern: vendor name + amount
-  const rows = [];
-  const re = /([A-Z][A-Za-z0-9 .,&*\-]{3,40}?)\s+(-?\d+\.\d{2})\b/g;
-  let m;
-  while ((m = re.exec(text)) !== null) {
-    rows.push({ description: m[1].trim(), amount: Math.abs(parseFloat(m[2])) });
-  }
-  return rows;
+/**
+ * THE PRIMARY OF A CLUSTER — move 2. When several builds do one job, the one to send people to is the
+ * one furthest up the ladder; ties break on most recently touched, then name, so the answer is
+ * deterministic rather than whichever happened to be first in the list.
+ *
+ * ⚑ It picks a FIRST CHOICE, it does not delete the others. A cluster that quietly loses its members
+ * is indistinguishable from one that was finished, and the estate has been bitten by exactly that.
+ */
+function primaryOf(rows) {
+  const list = (Array.isArray(rows) ? rows : []).filter(r => r && r.name);
+  if (!list.length) return null;
+  const sorted = [...list].sort((a, b) =>
+    rank(b.tier) - rank(a.tier)
+    || String(b.pushed || '').localeCompare(String(a.pushed || ''))
+    || String(a.name).localeCompare(String(b.name)));
+  return { primary: sorted[0], rest: sorted.slice(1) };
+}
+return { tierOf };
+})();
+
+// ── prices.mjs (own scope) ──
+const { KINDS, days, checkRegistry, lookup, exVat, toGbp } = (() => {
+// fallstack · prices.mjs — the estate's one registry of vendor list prices and public rates, and the gate that keeps
+// every build honest to it. A build never types a price: it pulls registry entries into its prices.lock.json, and
+// konomify's basis gate fails the build when a locked entry differs from the registry, is missing from it, or is
+// older than the registry allows. A price with no source, no date or no stated figure never enters the registry.
+//
+// PURE and TOTAL: no I/O, no clock (the caller passes asOf), no throw on garbage.
+
+const isStr = (v) => typeof v === 'string' && v.length > 0;
+const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
+const isObj = (v) => typeof v === 'object' && v !== null && !Array.isArray(v);
+const fail = (why) => ({ ok: false, why });
+const DATE = /^\d{4}-\d{2}-\d{2}$/;
+const HTTPS = /^https:\/\/\S+$/;
+const ID = /^[a-z0-9][a-z0-9.-]*$/;
+
+const KINDS = ['seat', 'saas', 'api', 'rate', 'fx', 'energy', 'power', 'salaries', 'rise'];
+const CURRENCIES = ['GBP', 'USD'];
+const VATS = ['excluded', 'included', 'not stated'];
+
+/** days(a, b) — whole calendar days from a to b (both YYYY-MM-DD); null if either is not a date. */
+function days(a, b) {
+  if (!DATE.test(a || '') || !DATE.test(b || '')) return null;
+  return Math.round((Date.parse(b + 'T00:00:00Z') - Date.parse(a + 'T00:00:00Z')) / 86400000);
 }
 
-// =====================================================================
-// MATCHING ENGINE
-// =====================================================================
-function normaliseVendor(s) {
-  return (s||'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+/** checkEntry(e) — what is wrong with one registry entry ([] when nothing is). Every entry names its kind, links the
+ *  page its figure came from (https) and the date it was checked; each kind must carry its stated figure. */
+function checkEntry(e) {
+  if (!isObj(e)) return ['not an entry'];
+  const p = [];
+  const id = isStr(e.id) && ID.test(e.id) ? e.id : null;
+  if (!id) p.push('an id (lower-case letters, digits, dots and dashes)');
+  if (!KINDS.includes(e.kind)) p.push('a kind (' + KINDS.join(', ') + ')');
+  if (!HTTPS.test(e.source || '')) p.push('an https source');
+  if (!DATE.test(e.checked || '')) p.push('a checked date');
+  const says = isStr(e.quote) || isStr(e.what) || isStr(e.how) || isStr(e.why);
+  if (e.kind === 'seat' || e.kind === 'saas') {
+    if (!isStr(e.product)) p.push('the product');
+    if (!isNum(e.price) || e.price < 0) p.push('the list price');
+    if (!CURRENCIES.includes(e.currency)) p.push('the currency');
+    if (!isStr(e.per)) p.push('what the price is per');
+    if (!VATS.includes(e.vat)) p.push('the VAT treatment');
+    if (!isStr(e.quote)) p.push('the price as the vendor states it');
+  } else if (e.kind === 'api') {
+    if (!isStr(e.provider) || !isStr(e.model)) p.push('the provider and model');
+    if (!isNum(e.inPerM) || !isNum(e.outPerM) || e.inPerM < 0 || e.outPerM < 0) p.push('the prices per million tokens in and out');
+    if (!CURRENCIES.includes(e.currency)) p.push('the currency');
+  } else if (e.kind === 'rate') {
+    if (!isNum(e.value)) p.push('the value');
+    if (!says) p.push('what the figure is');
+  } else if (e.kind === 'fx') {
+    if (!isNum(e.gbpPerUsd) || e.gbpPerUsd <= 0) p.push('pounds per dollar');
+    if (!isStr(e.how)) p.push('how the rate was derived');
+  } else if (e.kind === 'energy') {
+    if (!isNum(e.pencePerKwh) || e.pencePerKwh <= 0) p.push('pence per kWh');
+    if (!says) p.push('what the figure is');
+  } else if (e.kind === 'power') {
+    if (!isNum(e.wattsLow) || !isNum(e.wattsHigh) || e.wattsLow <= 0 || e.wattsHigh < e.wattsLow) p.push('the published power range');
+  } else if (e.kind === 'salaries') {
+    const roles = isObj(e.roles) ? Object.values(e.roles) : [];
+    if (roles.length === 0 || roles.some((r) => !isObj(r) || !isNum(r.median) || r.median <= 0)) p.push('the roles with their medians');
+  } else if (e.kind === 'rise') {
+    if (!isNum(e.low) || !isNum(e.high) || e.low <= 0 || e.high < e.low) p.push('the rise, low to high');
+    if (!isStr(e.quote) || !isStr(e.what)) p.push('what rose, as the vendor states it');
+  }
+  return p;
 }
 
-function matchVendor(rawDesc) {
-  const n = normaliseVendor(rawDesc);
-  for (const organ of STACK) {
-    for (const r of organ.replaces) {
-      if (n.includes(r)) return { organ, replaceFor: r };
-    }
+/** checkRegistry(reg, asOf) — the whole registry: every entry well formed, ids unique, nothing older than
+ *  reg.maxAgeDays or dated after asOf. */
+function checkRegistry(reg, asOf) {
+  if (!isObj(reg) || !Array.isArray(reg.entries)) return fail('a registry with entries');
+  if (!isNum(reg.maxAgeDays) || reg.maxAgeDays <= 0) return fail('the registry must say how old an entry may be (maxAgeDays)');
+  if (!DATE.test(asOf || '')) return fail('asOf must be a date');
+  const problems = [], stale = [], seen = new Set();
+  for (const e of reg.entries) {
+    const bad = checkEntry(e);
+    const name = isObj(e) && isStr(e.id) ? e.id : '(no id)';
+    if (bad.length) { problems.push(name + ' needs ' + bad.join(', ')); continue; }
+    if (seen.has(e.id)) problems.push(e.id + ' appears twice');
+    seen.add(e.id);
+    const age = days(e.checked, asOf);
+    if (age < 0) problems.push(e.id + ' is dated after ' + asOf);
+    else if (age > reg.maxAgeDays) { stale.push(e.id); problems.push(e.id + ' was checked ' + age + ' days ago (limit ' + reg.maxAgeDays + ') — re-check it at its source'); }
   }
+  return { ok: problems.length === 0, count: reg.entries.length, problems, stale };
+}
+
+/** lookup(reg, id) — one entry, or null. */
+function lookup(reg, id) {
+  if (!isObj(reg) || !Array.isArray(reg.entries) || !isStr(id)) return null;
+  return reg.entries.find((e) => isObj(e) && e.id === id) || null;
+}
+
+// Canonical JSON: keys sorted at every level, so two entries compare by content, not by key order.
+function canon(v) {
+  if (Array.isArray(v)) return '[' + v.map(canon).join(',') + ']';
+  if (isObj(v)) return '{' + Object.keys(v).sort().map((k) => JSON.stringify(k) + ':' + canon(v[k])).join(',') + '}';
+  return JSON.stringify(v === undefined ? null : v);
+}
+
+/** pull(reg, ids) — the lock a build commits: exact copies of the registry entries it uses. */
+function pull(reg, ids) {
+  if (!Array.isArray(ids) || ids.length === 0) return fail('the ids the build uses');
+  const entries = [];
+  for (const id of ids) {
+    const e = lookup(reg, id);
+    if (!e) return fail('the registry has no entry ' + String(id));
+    if (!entries.some((x) => x.id === e.id)) entries.push(JSON.parse(JSON.stringify(e)));
+  }
+  return { ok: true, lock: { registry: 'sjgant80-hub/fallstack', entries } };
+}
+
+/** checkLock(lock, reg, asOf) — does the build's lock still say exactly what the registry says, and is every entry
+ *  it leans on fresh? */
+function checkLock(lock, reg, asOf) {
+  if (!isObj(lock) || !Array.isArray(lock.entries) || lock.entries.length === 0) return fail('a lock with entries (prices.lock.json)');
+  const r = checkRegistry(reg, asOf);
+  if (!r.ok && r.why) return r;
+  const problems = [], seen = new Set();
+  for (const e of lock.entries) {
+    const id = isObj(e) && isStr(e.id) ? e.id : null;
+    if (!id) { problems.push('a locked entry without an id'); continue; }
+    if (seen.has(id)) problems.push(id + ' is locked twice');
+    seen.add(id);
+    const truth = lookup(reg, id);
+    if (!truth) { problems.push(id + ' is not in the registry — a price the registry does not hold is a typed price'); continue; }
+    if (canon(e) !== canon(truth)) problems.push(id + ' differs from the registry — pull it again');
+    if (r.stale.includes(id)) problems.push(id + ' is stale in the registry (checked ' + truth.checked + ') — re-check it at its source, then pull');
+  }
+  return { ok: problems.length === 0, problems, locked: seen.size };
+}
+
+/** exVat(amount, vat, rate) — a price net of VAT. 'excluded' and 'not stated' are taken as net (a vendor that does
+ *  not state VAT is quoting its list price); 'included' is divided out. */
+function exVat(amount, vat, rate) {
+  if (!isNum(amount) || !VATS.includes(vat) || !isNum(rate) || rate < 0) return null;
+  return vat === 'included' ? amount / (1 + rate) : amount;
+}
+
+/** toGbp(amount, currency, gbpPerUsd) — pounds. */
+function toGbp(amount, currency, gbpPerUsd) {
+  if (!isNum(amount) || !isNum(gbpPerUsd) || gbpPerUsd <= 0) return null;
+  if (currency === 'GBP') return amount;
+  if (currency === 'USD') return amount * gbpPerUsd;
   return null;
 }
 
-function audit(vendors) {
-  // group raw transactions by vendor signature
-  const groups = {};
-  for (const v of vendors) {
-    const n = normaliseVendor(v.description);
-    const key = n.split(' ').slice(0, 3).join(' '); // first 3 words
-    if (!groups[key]) groups[key] = { desc: v.description, samples: [], total: 0, count: 0 };
-    groups[key].samples.push(v);
-    groups[key].total += v.amount;
-    groups[key].count++;
-  }
-
-  const matched = [];
-  const unmatched = [];
-  for (const [key, g] of Object.entries(groups)) {
-    if (g.count < 1) continue;
-    const monthly = g.total / g.count;
-    const annual = monthly * 12;
-    const match = matchVendor(g.desc);
-    const item = {
-      vendor_raw: g.desc,
-      vendor_clean: g.desc.split(/[\d]/)[0].trim().toUpperCase(),
-      monthly,
-      annual,
-      count: g.count,
-      matched: !!match,
-      organ: match ? match.organ : null,
-      coverage: match ? match.organ.coverage : null,
-      saving: match ? annual : 0,
-    };
-    if (match) matched.push(item);
-    else unmatched.push(item);
-  }
-  return { matched, unmatched, all: [...matched, ...unmatched] };
-}
-
-// =====================================================================
-// RENDER
-// =====================================================================
-function fmt(n) { return '£' + (Math.round((n||0)*100)/100).toFixed(0); }
-
-function render() {
-  const all = state.vendors;
-  if (!all.length) {
-    $('#findings-empty').style.display = 'block';
-    $('#findings-table').style.display = 'none';
-    $('#savings').style.display = 'none';
-    return;
-  }
-  $('#findings-empty').style.display = 'none';
-  $('#findings-table').style.display = 'table';
-  $('#savings').style.display = 'block';
-
-  const tbody = $('#findings-tbody');
-  tbody.innerHTML = '';
-  const sorted = [...all].sort((a,b) => b.annual - a.annual);
-  for (const f of sorted) {
-    const tr = document.createElement('tr');
-    const repCell = f.organ
-      ? `<a class="replacement-link" href="${f.organ.url}" target="_blank">◊ ${f.organ.name}</a><br><span class="mono" style="color:var(--dim);font-size:10px">${f.organ.cat}</span> ${f.coverage === 'partial' ? '<span class="tag partial">partial</span>' : ''}`
-      : `<span class="tag miss">no sovereign match</span><br><span class="mono" style="color:var(--dim);font-size:10px">${f.vendor_clean}</span>`;
-    tr.innerHTML = `
-      <td><b>${escapeHtml(f.vendor_clean)}</b><br><span class="mono" style="color:var(--dim);font-size:10px">${escapeHtml((f.vendor_raw||'').slice(0,40))}</span></td>
-      <td class="amt neg">${fmt(f.monthly)}</td>
-      <td class="amt neg">${fmt(f.annual)}</td>
-      <td>${repCell}</td>
-      <td class="amt ${f.saving ? 'pos':''}">${f.saving ? fmt(f.saving) : '—'}</td>
-    `;
-    tbody.appendChild(tr);
-  }
-
-  // headline stats
-  const currentMonthly = all.reduce((s,f) => s + f.monthly, 0);
-  const matchedCount = all.filter(f => f.matched).length;
-  const totalSaving = all.filter(f => f.matched).reduce((s,f) => s + f.saving, 0);
-  $('#stat-current').textContent = fmt(currentMonthly);
-  $('#stat-sovereign').textContent = '£0';
-  $('#stat-matches').textContent = `${matchedCount} / ${all.length}`;
-  const yearsLabel = totalSaving > 0 ? '< 1 month' : 'n/a';
-  $('#stat-years').textContent = yearsLabel;
-  $('#big-savings').textContent = fmt(totalSaving);
-}
-
-function renderOrgans() {
-  const wrap = $('#organ-cards');
-  wrap.innerHTML = '';
-  for (const o of STACK) {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <h3 style="margin-top:0">◊ ${o.name}</h3>
-      <p class="mono" style="color:var(--brass);font-size:11px;text-transform:uppercase;letter-spacing:.1em;margin:4px 0 10px">${o.cat}</p>
-      <p style="font-size:13px;color:var(--cream);opacity:.85">Replaces: ${o.replaces.slice(0,3).map(r => r.replace(/\b\w/g, c => c.toUpperCase())).join(' · ')}${o.replaces.length > 3 ? ' · +' + (o.replaces.length-3) + ' more' : ''}</p>
-      <div style="display:flex;gap:6px;margin-top:8px">
-        <a class="replacement-link" href="${o.url}" target="_blank">open →</a>
-        ${o.coverage === 'partial' ? '<span class="tag partial">partial replacement</span>' : '<span class="tag match">full replacement</span>'}
-      </div>
-    `;
-    wrap.appendChild(card);
-  }
-}
-
-function escapeHtml(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-// =====================================================================
-// MIGRATION PLAN + LETTERS
-// =====================================================================
-function planMarkdown() {
-  const matched = state.vendors.filter(f => f.matched);
-  const unmatched = state.vendors.filter(f => !f.matched);
-  const total = matched.reduce((s,f) => s + f.annual, 0);
-
-  let md = `# ◊ FallStack · sovereign migration plan
-
-**Generated:** ${new Date().toISOString()}
-**Estimated annual savings:** ${fmt(total)}
-**Subs matched to sovereign organs:** ${matched.length} of ${matched.length + unmatched.length}
-
----
-
-## Migration order
-
-Forks in this order minimise data loss · earlier organs feed later ones.
-
-`;
-  // priority order: CRM, contacts/list, scheduling, forms, invoicing, then everything else
-  const priority = ['fallcrm','falllist','fallslot','fallform','fallinvoice','fallap','fallflow','fallhire','fallscribe','fallback','fallcarousel','fallpost','fallguild','audiofabric','operator','groundlevel','fall-euaiact','botler','exitengine'];
-  const orderedMatched = [...matched].sort((a,b) => {
-    const ai = priority.indexOf(a.organ.id);
-    const bi = priority.indexOf(b.organ.id);
-    return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
-  });
-
-  let i = 1;
-  for (const m of orderedMatched) {
-    md += `### ${i}. ${m.organ.name} (replaces ${m.vendor_clean})
-
-- **Currently paying:** ${fmt(m.monthly)}/mo · ${fmt(m.annual)}/yr
-- **Sovereign cost:** £0
-- **Annual saving:** ${fmt(m.annual)}
-- **Open the organ:** ${m.organ.url}
-- **Coverage:** ${m.coverage === 'full' ? 'full replacement' : 'partial · validate gaps below before cancelling'}
-
-**Migration steps:**
-1. Open ${m.organ.url} and complete the brief setup (mostly 1-2 minutes).
-2. Export your data from ${m.vendor_clean} (most vendors offer a CSV export under Settings → Data).
-3. Drag the export into ${m.organ.name} (or paste the rows).
-4. Run a 1-week parallel period · keep both running, compare daily output.
-5. Once parity is confirmed, draft the cancellation letter (FallBack → cancel-subscription template).
-6. Send. Mark as cancelled. Bank the saving.
-
----
-
-`;
-    i++;
-  }
-
-  if (unmatched.length) {
-    md += `## Subs WITHOUT a sovereign replacement (yet)
-
-These are real gaps. Either fork your own, keep paying, or wait for a future estate organ.
-
-`;
-    for (const u of unmatched) {
-      md += `- **${u.vendor_clean}** · ${fmt(u.monthly)}/mo · ${fmt(u.annual)}/yr\n`;
+/** pricedObjects(value, path) — every object in a build's data that states a price in a currency, with the registry
+ *  entry it claims to come from: { path, id, entry, value }. id is the object's "registry" field, or its own id when the
+ *  object is a registry-shaped entry (entry: true); null means a typed price. The build gate checks each against the
+ *  build's lock. */
+function pricedObjects(value, path) {
+  const out = [];
+  const walk = (v, p) => {
+    if (Array.isArray(v)) { v.forEach((x, i) => walk(x, p + '[' + i + ']')); return; }
+    if (!isObj(v)) return;
+    if (CURRENCIES.includes(v.currency) && ['price', 'inPerM', 'outPerM', 'amount'].some((k) => isNum(v[k]))) {
+      const entry = isStr(v.id) && KINDS.includes(v.kind);
+      out.push({ path: p, id: isStr(v.registry) ? v.registry : entry ? v.id : null, entry, value: v });
     }
-    md += '\n---\n';
+    for (const k of Object.keys(v)) walk(v[k], p + '.' + k);
+  };
+  walk(value, isStr(path) ? path : '$');
+  return out;
+}
+
+/** agrees(value, entry) — the fields an object shares with its registry entry (all but "registry") are equal: a
+ *  price that names an entry but states a different figure is a typed price wearing a label. */
+function agrees(value, entry) {
+  if (!isObj(value) || !isObj(entry)) return ['not an object'];
+  return Object.keys(value).filter((k) => k !== 'registry' && k in entry && canon(value[k]) !== canon(entry[k]));
+}
+return { KINDS, days, checkRegistry, lookup, exVat, toGbp };
+})();
+
+// ── stack.mjs (own scope) ──
+const { audit, replacement } = (() => {
+// fallstack · stack.mjs — the SaaS a company rents, against the estate organ that replaces it, and how finished that
+// organ really is. A replacement is claimed only where an organ covers the function (registry/organs.json names what
+// it covers and what it does not), and its maturity is the ladder's verdict from what GitHub's runners did (tier.mjs,
+// vendored verbatim from fallworld) — never a label anyone typed.
+//
+// PURE and TOTAL: no I/O, no clock, no throw on garbage.
+
+const isStr = (v) => typeof v === 'string' && v.length > 0;
+const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
+const isObj = (v) => typeof v === 'object' && v !== null && !Array.isArray(v);
+const fail = (why) => ({ ok: false, why });
+const strList = (v) => Array.isArray(v) && v.every(isStr);
+
+/** checkOrgans(map) — every function says what it is; a replaced function names its organ, what the organ covers,
+ *  what it does not, and whether it carries a route that sends data out (byok); a kept one says why. */
+function checkOrgans(map) {
+  if (!isObj(map) || !Array.isArray(map.functions) || map.functions.length === 0) return fail('an organ map with functions');
+  const problems = [], seen = new Set();
+  for (const f of map.functions) {
+    const fn = isObj(f) && isStr(f.fn) ? f.fn : null;
+    if (!fn) { problems.push('a function without its id (fn)'); continue; }
+    if (seen.has(fn)) problems.push(fn + ' appears twice');
+    seen.add(fn);
+    if (!isStr(f.label)) problems.push(fn + ' needs a label');
+    if (f.organ === null) { if (!isStr(f.why)) problems.push(fn + ' is kept: say why no organ replaces it'); continue; }
+    if (!isStr(f.organ)) problems.push(fn + ' needs an organ, or organ: null with why');
+    if (!strList(f.covers) || f.covers.length === 0) problems.push(fn + ' needs what the organ covers');
+    if (!strList(f.gaps)) problems.push(fn + ' needs what the organ does not cover (gaps: [] if none)');
+    if (f.byok !== true && f.byok !== false) problems.push(fn + ' must say whether the organ carries a bring-your-own-key cloud route (byok)');
   }
-
-  md += `\n## Audit envelope
-
-This plan can be Konomi-signed. Click "Konomi-sign the audit envelope" in FallStack to mint an Ed25519 signature provable to any verifier.
-
----
-
-*◊ FallStack · prime 1321 · MIT · sovereign · single-file · forever*
-*Architecture: Thomas Frumkin · MianoCube · Implementation: Simon Gant*
-*For the people. Not the few.*
-`;
-  return md;
+  return { ok: problems.length === 0, problems, functions: seen.size };
 }
 
-async function downloadPlan() {
-  const md = planMarkdown();
-  const blob = new Blob([md], { type:'text/markdown' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = `fallstack-migration-plan-${Date.now()}.md`;
-  a.click();
-  URL.revokeObjectURL(url);
+/** replacement(fn, map, evidence) — the organ that replaces a function, and its rung on the ladder from GitHub's own
+ *  record (evidence: { organ: [workflow records] }). A function with no organ is kept, with the reason. */
+function replacement(fn, map, evidence) {
+  if (!isObj(map) || !Array.isArray(map.functions)) return fail('an organ map');
+  const f = map.functions.find((x) => isObj(x) && x.fn === fn);
+  if (!f) return fail('the organ map has no function ' + String(fn));
+  if (!isStr(f.organ)) return { ok: true, fn, replaced: false, why: isStr(f.why) ? f.why : '' };
+  const records = isObj(evidence) && Array.isArray(evidence[f.organ]) ? evidence[f.organ] : [];
+  const t = tierOf(records, { live: true });
+  const gated = records.filter((r) => isObj(r) && r.mutation === true && r.conclusion === 'success').flatMap((r) => (strList(r.mutates) ? r.mutates : []));
+  return {
+    ok: true, fn, replaced: true, organ: f.organ, label: f.label, tier: t.tier, tierWhy: t.why, workflow: t.workflow, sha: t.sha,
+    gated: [...new Set(gated)], covers: f.covers, gaps: f.gaps, byok: f.byok,
+  };
 }
 
-function generateLetters() {
-  // Just forward to FallBack with the vendor list in the URL
-  const vendors = state.vendors.filter(f => f.matched).map(f => f.vendor_clean).join(',');
-  // FallBack will pick this up via query string · or open with a paste-ready list
-  alert(`Cancellation letters: open FallBack and paste these vendors:\n\n${vendors.split(',').join('\n')}\n\nFallBack will draft the cancellation letter for each one citing your jurisdiction's consumer law.`);
-  window.open('https://sjgant80-hub.github.io/fallback/', '_blank');
-}
-
-// =====================================================================
-// KONOMI SIGNING
-// =====================================================================
-async function signEnvelope() {
-  try {
-    const pair = await crypto.subtle.generateKey({ name:'Ed25519' }, false, ['sign','verify']);
-    const raw = await crypto.subtle.exportKey('raw', pair.publicKey);
-    const pubHex = Array.from(new Uint8Array(raw)).map(b=>b.toString(16).padStart(2,'0')).join('');
-
-    const envelope = {
-      kind: 'fallstack-audit',
-      ts: new Date().toISOString(),
-      vendors: state.vendors.length,
-      matched: state.vendors.filter(f => f.matched).length,
-      annual_saving_gbp: state.vendors.filter(f => f.matched).reduce((s,f) => s + f.annual, 0),
-      pubkey: pubHex,
-    };
-    const canon = JSON.stringify(envelope);
-    const sig = await crypto.subtle.sign({ name:'Ed25519' }, pair.privateKey, new TextEncoder().encode(canon));
-    const sigHex = Array.from(new Uint8Array(sig)).map(b=>b.toString(16).padStart(2,'0')).join('');
-    state.sigHex = sigHex;
-    state.audit_envelope = { ...envelope, signature: sigHex };
-    $('#sig-line').innerHTML = `◊ Audit envelope signed · pubkey: <code style="color:var(--cream)">${pubHex.slice(0,32)}…</code> · sig: <code style="color:var(--cream)">${sigHex.slice(0,32)}…</code>`;
-  } catch (e) {
-    $('#sig-line').textContent = '✗ signing unavailable in this browser';
+/** audit(stack, reg, map, evidence) — a company's rented stack, line by line: what each subscription costs a year (ex
+ *  VAT, in pounds, from the registry's list price), and the organ that replaces it with its ladder rung.
+ *  stack: [{ fn, rent: registry id, users }]; reg: the price registry (needs uk-vat and fx-gbp-usd). */
+function audit(stack, reg, map, evidence) {
+  if (!Array.isArray(stack) || stack.length === 0) return fail('the rented stack: [{ fn, rent, users }]');
+  const vat = lookup(reg, 'uk-vat'), fx = lookup(reg, 'fx-gbp-usd');
+  if (!vat || !isNum(vat.value) || !fx || !isNum(fx.gbpPerUsd)) return fail('the registry needs uk-vat and fx-gbp-usd');
+  const lines = [];
+  for (const s of stack) {
+    if (!isObj(s) || !isStr(s.fn) || !isStr(s.rent)) return fail('each stack line needs fn and rent');
+    if (!Number.isInteger(s.users) || s.users < 0) return fail(s.fn + ': users must be a whole number');
+    const e = lookup(reg, s.rent);
+    if (!e || (e.kind !== 'saas' && e.kind !== 'seat')) return fail(s.fn + ': the registry has no subscription ' + s.rent);
+    const monthly = toGbp(exVat(e.price, e.vat, vat.value), e.currency, fx.gbpPerUsd);
+    if (monthly === null) return fail(s.fn + ': ' + s.rent + ' cannot be priced in pounds');
+    const r = replacement(s.fn, map, evidence);
+    if (!r.ok) return r;
+    lines.push({ fn: s.fn, rent: s.rent, product: e.product, users: s.users, perUserMonth: Math.round(monthly * 100) / 100, perYear: Math.round(monthly * s.users * 12 * 100) / 100, source: e.source, checked: e.checked, replacement: r });
   }
+  const sum = (f) => Math.round(lines.filter(f).reduce((a, l) => a + l.perYear, 0) * 100) / 100;
+  return {
+    ok: true, lines,
+    rentPerYear: sum(() => true),
+    replaceablePerYear: sum((l) => l.replacement.replaced),
+    provenPerYear: sum((l) => l.replacement.replaced && l.replacement.tier === 'proven'),
+    keptPerYear: sum((l) => !l.replacement.replaced),
+  };
 }
+return { audit, replacement };
+})();
+// ⟦KERNEL-END⟧
 
-// =====================================================================
-// FILE INTAKE
-// =====================================================================
-async function handleFile(file) {
-  const status = $('#parse-status');
-  status.textContent = `parsing ${file.name}…`;
-  try {
-    let txns = [];
-    if (file.name.toLowerCase().endsWith('.pdf') || file.type === 'application/pdf') {
-      const buf = await file.arrayBuffer();
-      txns = await parsePDF(buf);
-    } else if (file.name.toLowerCase().endsWith('.csv') || file.type === 'text/csv') {
-      txns = parseCSV(await file.text());
-    } else {
-      txns = parsePasted(await file.text());
-    }
-    await processVendors(txns);
-  } catch (e) {
-    status.textContent = `✗ parse error: ${e.message}`;
-    console.error(e);
-  }
+const $ = (id) => document.getElementById(id);
+const D = JSON.parse($('stackData').textContent);
+(function () { try { const s = localStorage.getItem('fs-theme'); if (s) document.documentElement.setAttribute('data-theme', s); } catch {}
+  $('themeBtn').onclick = () => { const c = document.documentElement.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); const n = c === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', n); try { localStorage.setItem('fs-theme', n); } catch {} }; })();
+const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const gbp = (x) => '£' + Math.round(x).toLocaleString('en-GB');
+const link = (u, t) => '<a href="' + esc(u) + '">' + esc(t) + '</a>';
+const chip = (c, t) => '<span class="chip ' + esc(c) + '">' + esc(t || c) + '</span>';
+const localDate = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+let stack = D.stack.map((s) => ({ ...s }));
+
+function renderAudit() {
+  const a = audit(stack, D.registry, D.organs, D.evidence);
+  if (!a.ok) { $('auditTable').querySelector('tbody').innerHTML = '<tr><td colspan="6">' + esc(a.why) + '</td></tr>'; return; }
+  $('auditTable').querySelector('tbody').innerHTML = a.lines.map((l, i) => { const r = l.replacement;
+    return '<tr><td><b>' + esc(r.label || l.fn) + '</b></td><td>' + link(l.source, l.product) + '<br><span class="sub">' + '£' + l.perUserMonth.toFixed(2) + ' a user a month</span></td><td><input type="number" min="0" step="1" data-i="' + i + '" value="' + l.users + '" aria-label="users for ' + esc(l.fn) + '" /></td><td class="n">' + gbp(l.perYear) + '</td><td>' + (r.replaced ? link('https://sjgant80-hub.github.io/' + r.organ + '/', D.organs.functions.find((f) => f.fn === l.fn).organName || r.organ) : chip('kept', 'not replaced')) + '</td><td>' + (r.replaced ? chip(r.tier) : '') + '</td></tr>'; }).join('')
+    + '<tr class="total"><td>Rent a year</td><td></td><td></td><td class="n">' + gbp(a.rentPerYear) + '</td><td>' + gbp(a.replaceablePerYear) + ' replaceable</td><td>' + gbp(a.provenPerYear) + ' by Proven organs</td></tr>';
+  $('auditTable').querySelectorAll('input').forEach((inp) => inp.addEventListener('change', () => { const v = Number(inp.value); if (inp.value !== '' && Number.isInteger(v) && v >= 0) { stack[Number(inp.dataset.i)].users = v; renderAudit(); } }));
+  $('auditDetail').innerHTML = a.lines.filter((l) => l.replacement.replaced).map((l) => { const r = l.replacement;
+    return '<details><summary>' + esc(r.label) + ' — what ' + esc(r.organ) + ' covers, and what it does not</summary><p><b>Covers:</b></p><ul class="tight">' + r.covers.map((c) => '<li>' + esc(c) + '</li>').join('') + '</ul><p><b>Does not cover yet:</b></p><ul class="tight">' + r.gaps.map((c) => '<li>' + esc(c) + '</li>').join('') + '</ul><p class="note">Ladder: ' + esc(r.tier) + ' — ' + esc(r.tierWhy) + (r.gated.length ? '. The gate mutates ' + esc(r.gated.join(', ')) : '') + (r.sha ? ' (run on ' + esc(r.sha) + ')' : '') + '.' + (r.byok ? ' The organ ships an optional bring-your-own-key route to a cloud model, off by default; a deployment that keeps every record in the building leaves it off.' : '') + '</p></details>'; }).join('');
+  const reg = checkRegistry(D.registry, localDate());
+  $('stats').innerHTML = [
+    [gbp(a.rentPerYear), 'a year of back-office rent at list price, ex VAT, for the modelled bank'],
+    [gbp(a.provenPerYear), 'of it replaced by organs on the Proven rung'],
+    [String(D.registry.entries.length), 'vendor prices and public rates in the registry, every one sourced and dated'],
+    [reg.ok ? 'All fresh' : reg.stale.length + ' stale', 'checked within ' + D.registry.maxAgeDays + ' days of today'],
+  ].map(([v, t]) => '<div class="stat"><div class="v">' + esc(v) + '</div><div class="t">' + esc(t) + '</div></div>').join('');
 }
-
-async function processVendors(txns) {
-  const status = $('#parse-status');
-  if (!txns.length) {
-    status.textContent = '✗ no vendors detected · try pasting them below';
-    return;
-  }
-  const result = audit(txns);
-  state.vendors = result.all;
-  render();
-  status.textContent = `✓ found ${result.all.length} subs · ${result.matched.length} have a sovereign replacement`;
-  document.getElementById('savings').scrollIntoView({ behavior:'smooth', block:'start' });
-
-  // NAS hand-off
-  if (window.nas && window.nas.isForkPresent && window.nas.isForkPresent()) {
-    try {
-      const sav = result.matched.reduce((s,f) => s + f.annual, 0);
-      window.nas.ingest(`FallStack audit: ${result.matched.length}/${result.all.length} matched · £${sav.toFixed(0)}/yr recoverable`, { kind:'fallstack-audit' });
-    } catch(_) {}
-  }
+function renderKept() {
+  $('keptTable').querySelector('tbody').innerHTML = D.organs.functions.filter((f) => !f.organ).map((f) => '<tr><td><b>' + esc(f.label) + '</b></td><td>' + esc(f.why) + '</td></tr>').join('');
 }
-
-// =====================================================================
-// EXAMPLE
-// =====================================================================
-const EXAMPLE_BILL = `HubSpot         450
-Mailchimp       89
-Calendly        96
-Typeform        59
-DocuSign        125
-Granola         180
-QuickBooks      75
-Asana           120
-Notion          80
-Slack           200
-Buffer          50
-Intercom        299
-Gusto           300
-Otter.ai        30
-Descript        24
-Bill.com        79
-Loom            32`;
-
-// =====================================================================
-// WIRE UP
-// =====================================================================
-window.addEventListener('DOMContentLoaded', () => {
-  renderOrgans();
-
-  const drop = $('#drop');
-  const input = $('#file-input');
-  drop.addEventListener('click', () => input.click());
-  input.addEventListener('change', (e) => {
-    if (e.target.files[0]) handleFile(e.target.files[0]);
-  });
-  drop.addEventListener('dragover', (e) => { e.preventDefault(); drop.classList.add('over'); });
-  drop.addEventListener('dragleave', () => drop.classList.remove('over'));
-  drop.addEventListener('drop', (e) => {
-    e.preventDefault(); drop.classList.remove('over');
-    if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
-  });
-
-  $('#parse-btn').addEventListener('click', async () => {
-    const txt = $('#paste-area').value;
-    if (!txt.trim()) { $('#parse-status').textContent = 'paste some subs first'; return; }
-    await processVendors(parsePasted(txt));
-  });
-
-  $('#example-btn').addEventListener('click', async () => {
-    $('#paste-area').value = EXAMPLE_BILL;
-    await processVendors(parsePasted(EXAMPLE_BILL));
-  });
-
-  $('#download-plan').addEventListener('click', downloadPlan);
-  $('#download-letters').addEventListener('click', generateLetters);
-  $('#sign-envelope').addEventListener('click', signEnvelope);
-
-  console.log('%c◊·κ=φ⁴ FallStack · prime 1321 · your company on free organs', 'color:#b8974a;font-weight:bold');
-});
-
-window.FallStack = { state, STACK, audit, parseCSV, parsePasted };
+function figure(e) {
+  if (e.kind === 'seat' || e.kind === 'saas') return (e.currency === 'GBP' ? '£' : '$') + e.price + ' ' + e.per + ' · VAT ' + e.vat;
+  if (e.kind === 'api') return '$' + e.inPerM + ' in / $' + e.outPerM + ' out per million tokens';
+  if (e.kind === 'rate') return String(e.value);
+  if (e.kind === 'fx') return e.gbpPerUsd + ' pounds per dollar';
+  if (e.kind === 'energy') return e.pencePerKwh + 'p per kWh';
+  if (e.kind === 'power') return e.wattsLow + '–' + e.wattsHigh + ' W';
+  if (e.kind === 'salaries') return Object.values(e.roles).length + ' roles';
+  if (e.kind === 'rise') return Math.round(e.low * 100) + (e.high > e.low ? '–' + Math.round(e.high * 100) : '') + '%';
+  return '';
+}
+function renderRegistry() {
+  const today = localDate(), kind = $('kindSel').value;
+  const r = checkRegistry(D.registry, today);
+  $('regSub').textContent = D.registry.entries.length + ' entries. ' + (r.ok ? 'Every one well formed and checked within ' + D.registry.maxAgeDays + ' days of ' + today + '.' : r.problems.join(' '));
+  $('regTable').querySelector('tbody').innerHTML = D.registry.entries.filter((e) => !kind || e.kind === kind).map((e) => { const age = days(e.checked, today);
+    return '<tr><td><b>' + esc(e.product || e.model || e.what || e.id) + '</b><br><span class="sub"><code>' + esc(e.id) + '</code> · ' + esc(e.kind) + '</span></td><td class="n">' + esc(figure(e)) + '</td><td class="sub">“' + esc(e.quote || e.how || e.what || e.why || '') + '” — ' + link(e.source, new URL(e.source).hostname.replace(/^www\./, '')) + '</td><td class="n">' + esc(e.checked) + '<br>' + (age <= D.registry.maxAgeDays ? chip('fresh', age + ' days') : chip('stale', age + ' days')) + '</td></tr>'; }).join('');
+}
+$('kindSel').innerHTML += KINDS.filter((k) => D.registry.entries.some((e) => e.kind === k)).map((k) => '<option value="' + k + '">' + k + '</option>').join('');
+$('kindSel').addEventListener('input', renderRegistry);
+renderAudit(); renderKept(); renderRegistry();
 </script>
-
 </body>
 </html>

@@ -1,0 +1,74 @@
+{
+ "scanned": "2026-09-30",
+ "how": "GitHub Actions API: each workflow on the default branch, its latest run there, and the workflow file itself. The Pages deploy is recorded but the ladder never counts it as a test.",
+ "organs": {
+  "fallforce": [
+   {
+    "name": "gate",
+    "conclusion": "success",
+    "mutation": true,
+    "pinned": true,
+    "sha": "6496070",
+    "at": "2026-08-24",
+    "mutates": [
+     "forecast.mjs",
+     "catalogue.mjs"
+    ]
+   },
+   {
+    "name": "pages-build-deployment",
+    "conclusion": "success",
+    "mutation": false,
+    "pinned": false,
+    "sha": "6496070",
+    "at": "2026-08-24",
+    "mutates": []
+   }
+  ],
+  "fallledger": [
+   {
+    "name": "gate",
+    "conclusion": "success",
+    "mutation": true,
+    "pinned": true,
+    "sha": "d46d335",
+    "at": "2026-09-16",
+    "mutates": [
+     "ledger.mjs"
+    ]
+   },
+   {
+    "name": "pages-build-deployment",
+    "conclusion": "success",
+    "mutation": false,
+    "pinned": false,
+    "sha": "d46d335",
+    "at": "2026-09-16",
+    "mutates": []
+   }
+  ],
+  "fallhr": [
+   {
+    "name": "gate",
+    "conclusion": "success",
+    "mutation": true,
+    "pinned": true,
+    "sha": "59479fc",
+    "at": "2026-08-17",
+    "mutates": [
+     "audit-chain.mjs",
+     "audit.mjs"
+    ]
+   },
+   {
+    "name": "pages-build-deployment",
+    "conclusion": "success",
+    "mutation": false,
+    "pinned": false,
+    "sha": "59479fc",
+    "at": "2026-08-17",
+    "mutates": []
+   }
+  ]
+ }
+}

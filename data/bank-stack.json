@@ -1,0 +1,8 @@
+{
+ "_rule": "The rented back office of a modelled 1,200-person UK bank (not a client) — the functions an estate organ replaces, at floor-level seat counts: the cheapest paid Salesforce suite above the small-team Starter for sales and relationship staff, Microsoft's Dynamics 365 for a Microsoft 365 shop's finance and HR users. Change the users on the page.",
+ "stack": [
+  { "fn": "crm", "rent": "salesforce-pro-suite", "users": 100, "why": "Sales, relationship and marketing staff: about one in ten of the bank's people." },
+  { "fn": "finance", "rent": "dynamics-365-finance", "users": 20, "why": "The finance team's full users." },
+  { "fn": "hr", "rent": "dynamics-365-human-resources", "users": 12, "why": "The HR team's full users; employee self-service is not counted." }
+ ]
+}

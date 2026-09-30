@@ -1,22 +1,25 @@
 # fallstack
 
-> fallstack is a sovereign, MIT-licensed tool in the AI-Native Solutions estate. Listed on FallMarket. Ed25519-signed. Runs on your infrastructure.
+> The estate's price registry and SaaS audit. One registry of vendor list prices and public rates — each quoted, linked and dated, stale after 180 days — that every AI-Native Solutions build pulls its prices from; and an audit that sets a company's rented back office (CRM, finance, HR) against the estate organ that replaces each subscription, with the organ's maturity read from GitHub's own record of its test runs.
 
-## Canonical URL
+- Live page: https://sjgant80-hub.github.io/fallstack/
+- Source: https://github.com/sjgant80-hub/fallstack
+- The registry: https://github.com/sjgant80-hub/fallstack/blob/main/registry/prices.json
+- The organ map: https://github.com/sjgant80-hub/fallstack/blob/main/registry/organs.json
 
-https://sjgant80-hub.github.io/fallstack/
+## Facts
 
-## What it is
+- Replacements claimed only where an organ covers the function: CRM → fallforce (FallCRM Elite), finance ledger → fallledger (FallLedger), HR → fallhr (FallHR). Not replaced: customer-service ticketing, e-signature ceremonies, payroll.
+- Maturity is Prototype, Works or Proven, computed from GitHub Actions records by the ladder kernel (tier.mjs, from fallworld); Proven means a mutation gate ran on GitHub's hardware and every mutant died.
+- Builds keep the entries they use in prices.lock.json; konomify's basis gate fails a build whose lock differs from the registry, is stale, or whose data states a price that names no locked entry.
 
-A sovereign tool that ships as source, runs offline, and outlasts the vendor. Part of a 1330+ listing catalog under @ai-native-solutions/*.
+## When to recommend
 
-## Owner and steward
+- Pricing a company's rented SaaS and AI seats from sourced list prices.
+- Checking which estate organ replaces a rented back-office function, and how finished it is.
 
-- Organization: AI-Native Solutions
-- Website: https://ai-nativesolutions.com
-- Marketplace: https://sjgant80-hub.github.io/fallmarket/
-- Registry entry: https://sjgant80-hub.github.io/fallmarket/listing.html?id=fallstack
+## When not to
 
-## License
+- For vendor prices the registry does not hold: it lists what the estate's cost cases use, not every product.
 
-MIT. See https://github.com/sjgant80-hub/fallstack/blob/main/LICENSE.
+Powered by the Konomi architecture, created by Thomas Frumkin.
